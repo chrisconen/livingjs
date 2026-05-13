@@ -3,1253 +3,1004 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luminous — Cosmetic Dentistry, Reimagined | Sydney</title>
-    <meta name="description" content="Sydney's most considered cosmetic dental practice. Veneers, implants, and smile makeovers crafted with surgical precision and the eye of a sculptor.">
+    <title>Living.js — Turn Any Website Into an Autonomous AI Agent</title>
+    <meta name="description" content="One script tag. Your website thinks, acts, and sells — 24/7. Open-source framework that turns static HTML into an autonomous AI-powered business agent. No backend. No database. No DevOps.">
+    <meta name="keywords" content="living.js, livingjs, ai website agent, autonomous website, mcp integration, ai-powered website, open source, web automation, lead generation, ai agent framework">
+    <meta name="author" content="Australian Web Agency — The Centaur Covenant">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://livingjs.australianweb.agency">
 
+    <!-- Open Graph -->
+    <meta property="og:title" content="Living.js — Your Website Is Now Alive">
+    <meta property="og:description" content="One script tag turns any website into an autonomous AI agent. Detects intent. Adapts in real-time. Books appointments. Qualifies leads. Never sleeps.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://livingjs.australianweb.agency">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Living.js — Your Website Is Now Alive">
+    <meta name="twitter:description" content="One script tag. Your static website becomes an autonomous AI agent. Open source. No backend.">
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --paper: #F5F1EA;
-            --paper-warm: #EEE6D8;
-            --ink: #1A1815;
-            --ink-soft: #3A352D;
-            --ink-mid: #6B6258;
-            --ink-light: #9A9082;
-            --ochre: #B88A4D;
-            --ochre-deep: #8B6534;
-            --cream: #FAF7F1;
-            --burnt: #8C3A1F;
-            --rule: rgba(26, 24, 21, 0.12);
-
-            --serif: 'Cormorant Garamond', 'Adobe Garamond Pro', Georgia, serif;
-            --sans: 'Inter', -apple-system, sans-serif;
+            --bg: #050505;
+            --surface: #0c0c0c;
+            --surface-2: #111;
+            --border: #1a1a1a;
+            --border-hover: #2a2a2a;
+            --text: #e8e8e8;
+            --text-dim: #666;
+            --text-mid: #999;
+            --accent: #C9A962;
+            --accent-dim: rgba(201,169,98,0.12);
+            --accent-glow: rgba(201,169,98,0.06);
+            --green: #4ade80;
+            --green-dim: rgba(74,222,128,0.1);
+            --red: #f87171;
+            --mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+            --serif: 'Instrument Serif', Georgia, serif;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
         html { scroll-behavior: smooth; }
+
         body {
-            background: var(--paper);
-            color: var(--ink);
-            font-family: var(--sans);
-            font-weight: 300;
-            font-size: 15px;
-            line-height: 1.65;
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--mono);
+            font-size: 14px;
+            line-height: 1.8;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            text-rendering: optimizeLegibility;
         }
-        ::selection { background: var(--ochre); color: var(--cream); }
-        a { color: inherit; text-decoration: none; }
-        img { display: block; max-width: 100%; }
 
-        /* Living.js Demo Banner */
-        .demo-banner {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 10000;
-            background: var(--ink); color: var(--cream);
-            padding: 0.6rem 1.5rem;
-            display: flex; justify-content: space-between; align-items: center;
-            font-family: var(--sans); font-size: 11px; letter-spacing: 0.04em;
-        }
-        .demo-banner-left { display: flex; align-items: center; gap: 1.25rem; }
-        .demo-banner .bolt { color: var(--ochre); }
-        .demo-banner-label { color: rgba(245,241,234,0.4); text-transform: uppercase; letter-spacing: 0.12em; font-size: 10px; }
-        .demo-banner-score { color: var(--ochre); font-feature-settings: 'tnum'; }
-        .demo-banner-intent {
-            padding: 0.2rem 0.6rem;
-            background: rgba(184,138,77,0.1);
-            border: 1px solid rgba(184,138,77,0.2);
-            color: var(--ochre);
-            text-transform: uppercase; letter-spacing: 0.1em; font-size: 10px;
-        }
-        .demo-banner a { color: var(--ochre); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; transition: opacity 0.3s; }
-        .demo-banner a:hover { opacity: 0.6; }
+        ::selection { background: var(--accent); color: var(--bg); }
+        a { color: inherit; }
 
-        /* Navigation */
-        nav {
-            position: fixed; top: 36px; left: 0; right: 0; z-index: 1000;
-            padding: 2rem 3rem;
-            display: flex; justify-content: space-between; align-items: center;
-            transition: background 0.4s, padding 0.4s, border-color 0.4s;
-            border-bottom: 1px solid transparent;
+        /* ─── Grain Overlay ─── */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 10000;
         }
-        nav.scrolled {
-            background: rgba(245,241,234,0.92);
-            backdrop-filter: blur(20px) saturate(1.2);
-            padding: 1.25rem 3rem;
-            border-bottom-color: var(--rule);
-        }
-        .nav-logo { font-family: var(--serif); font-size: 22px; font-weight: 500; letter-spacing: 0.04em; }
-        .nav-logo-mark { font-style: italic; color: var(--ochre); }
-        .nav-center { display: flex; gap: 2.5rem; list-style: none; }
-        .nav-center a { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft); transition: color 0.3s; }
-        .nav-center a:hover { color: var(--ochre); }
-        .nav-right { display: flex; align-items: center; gap: 1.5rem; }
-        .nav-phone { font-family: var(--serif); font-size: 16px; font-style: italic; }
-        .nav-cta {
-            font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
-            padding: 0.85rem 1.5rem; background: var(--ink); color: var(--cream);
-            transition: background 0.3s;
-        }
-        .nav-cta:hover { background: var(--ochre-deep); }
 
-        /* Hero */
+        /* ─── Top Bar ─── */
+        .topbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            height: 52px;
+            background: rgba(5,5,5,0.85);
+            backdrop-filter: blur(20px) saturate(1.5);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .topbar-logo {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .topbar-logo .bolt { color: var(--accent); }
+
+        .topbar-nav {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .topbar-nav a {
+            font-size: 12px;
+            color: var(--text-dim);
+            text-decoration: none;
+            letter-spacing: 0.04em;
+            transition: color 0.2s;
+        }
+
+        .topbar-nav a:hover { color: var(--text); }
+
+        .topbar-github {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.9rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 12px;
+            color: var(--text-mid);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .topbar-github:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .topbar-github svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        /* ─── Hero ─── */
         .hero {
-            min-height: 100vh; padding: 9rem 0 0;
-            display: grid; grid-template-columns: 1fr 1fr; align-items: end;
-            position: relative; overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
         }
-        .hero-text { padding: 0 3rem 5rem 5rem; position: relative; z-index: 2; }
-        .hero-eyebrow {
-            font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
-            color: var(--ink-mid); margin-bottom: 2.5rem;
-            display: flex; align-items: center; gap: 1rem;
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            pointer-events: none;
         }
-        .hero-eyebrow::before { content: ''; display: block; width: 40px; height: 1px; background: var(--ochre); }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1rem;
+            background: var(--green-dim);
+            border: 1px solid rgba(74,222,128,0.15);
+            border-radius: 100px;
+            font-size: 11px;
+            color: var(--green);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 2.5rem;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .hero-badge .dot {
+            width: 6px;
+            height: 6px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
         .hero-title {
             font-family: var(--serif);
-            font-size: clamp(3.5rem, 7vw, 7rem);
-            font-weight: 300; line-height: 0.95; letter-spacing: -0.02em;
-            margin-bottom: 2.5rem;
+            font-size: clamp(3rem, 7vw, 6rem);
+            font-weight: 400;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+            animation: fadeInUp 0.8s ease;
         }
-        .hero-title em { font-style: italic; font-weight: 400; color: var(--ochre-deep); }
-        .hero-lede {
-            font-family: var(--serif); font-size: 22px; font-weight: 300; font-style: italic;
-            color: var(--ink-soft); max-width: 460px; line-height: 1.45;
-            margin-bottom: 3.5rem;
+
+        .hero-title em {
+            font-style: italic;
+            color: var(--accent);
         }
-        .hero-cta-row { display: flex; align-items: center; gap: 2.5rem; }
+
+        .hero-sub {
+            font-size: 15px;
+            color: var(--text-dim);
+            max-width: 520px;
+            line-height: 1.9;
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s ease 0.15s both;
+        }
+
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            animation: fadeInUp 0.8s ease 0.3s both;
+        }
 
         .btn-primary {
-            display: inline-flex; align-items: center; gap: 1rem;
-            padding: 1.15rem 2.2rem;
-            background: var(--ink); color: var(--cream);
-            font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
-            transition: all 0.4s; position: relative; overflow: hidden;
-        }
-        .btn-primary::after {
-            content: ''; position: absolute; inset: 0;
-            background: var(--ochre-deep); transform: translateX(-101%);
-            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1); z-index: -1;
-        }
-        .btn-primary:hover::after { transform: translateX(0); }
-        .btn-primary span { position: relative; z-index: 1; }
-
-        .btn-link {
-            font-family: var(--serif); font-size: 18px; font-style: italic;
-            color: var(--ink); border-bottom: 1px solid var(--ink); padding-bottom: 4px;
-            transition: color 0.3s, border-color 0.3s;
-        }
-        .btn-link:hover { color: var(--ochre-deep); border-color: var(--ochre-deep); }
-
-        .hero-image { height: 100vh; position: relative; overflow: hidden; }
-        .hero-image img {
-            width: 100%; height: 100%; object-fit: cover;
-            filter: brightness(0.95) saturate(0.9); transform: scale(1.02);
-            transition: transform 8s ease-out;
-        }
-        .hero:hover .hero-image img { transform: scale(1.08); }
-        .hero-image-caption {
-            position: absolute; bottom: 2rem; right: 2rem;
-            font-family: var(--serif); font-style: italic; color: var(--cream);
-            font-size: 13px; letter-spacing: 0.05em;
-            writing-mode: vertical-rl; transform: rotate(180deg);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.6rem;
+            background: var(--accent);
+            color: var(--bg);
+            font-family: var(--mono);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.25s;
         }
 
-        /* Marquee */
-        .marquee {
-            border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
-            padding: 1.5rem 0; overflow: hidden; background: var(--paper-warm);
-        }
-        .marquee-track {
-            display: flex; gap: 4rem; white-space: nowrap;
-            animation: marquee 35s linear infinite;
-            font-family: var(--serif); font-style: italic; font-size: 18px;
-            color: var(--ink-soft);
-        }
-        .marquee-track span { display: flex; align-items: center; gap: 4rem; }
-        .marquee-track span::after { content: '✦'; color: var(--ochre); font-size: 12px; }
-        @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
-        /* Philosophy */
-        .philosophy {
-            padding: 9rem 5rem; max-width: 1400px; margin: 0 auto;
-            display: grid; grid-template-columns: 1fr 2fr; gap: 5rem;
-        }
-        .philosophy-label {
-            font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
-            color: var(--ink-mid); position: sticky; top: 12rem; align-self: start;
-        }
-        .philosophy-text {
-            font-family: var(--serif); font-size: clamp(1.5rem, 2.5vw, 2.2rem);
-            line-height: 1.35; font-weight: 300; max-width: 800px;
-        }
-        .philosophy-text em { font-style: italic; color: var(--ochre-deep); }
-        .philosophy-text .pull {
-            display: inline-block; margin-top: 1.5rem;
-            font-style: italic; font-size: 18px; font-family: var(--sans);
-            color: var(--ink-mid); letter-spacing: 0.02em;
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(201,169,98,0.25);
         }
 
-        /* Treatments */
-        .treatments-intro {
-            padding: 5rem 5rem 3rem; max-width: 1400px; margin: 0 auto;
-            display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: end;
-        }
-        .treatments-intro h2 {
-            font-family: var(--serif); font-size: clamp(2.5rem, 5vw, 4.5rem);
-            font-weight: 300; line-height: 1; letter-spacing: -0.02em;
-        }
-        .treatments-intro h2 em { font-style: italic; color: var(--ochre-deep); }
-        .treatments-intro p {
-            font-family: var(--serif); font-size: 19px; font-style: italic;
-            color: var(--ink-mid); line-height: 1.5; max-width: 460px;
-        }
-
-        .treatments { padding: 4rem 5rem 9rem; max-width: 1400px; margin: 0 auto; }
-        .treatment {
-            display: grid; grid-template-columns: 60px 1fr 1.2fr 1fr;
-            gap: 3rem; padding: 3rem 0;
-            border-top: 1px solid var(--rule);
-            align-items: start; transition: padding 0.4s ease;
-        }
-        .treatment:last-child { border-bottom: 1px solid var(--rule); }
-        .treatment:hover { padding: 3.5rem 0; }
-        .treatment-num {
-            font-family: var(--serif); font-size: 14px; font-style: italic;
-            color: var(--ink-mid); padding-top: 0.5rem;
-        }
-        .treatment-name h3 {
-            font-family: var(--serif); font-size: 36px; font-weight: 400;
-            line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 0.75rem;
-        }
-        .treatment-name h3 em { font-style: italic; color: var(--ochre-deep); }
-        .treatment-name .duration {
-            font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
-            color: var(--ink-mid);
-        }
-        .treatment-desc { font-size: 15px; color: var(--ink-soft); line-height: 1.7; }
-        .treatment-meta {
-            text-align: right; display: flex; flex-direction: column;
-            align-items: flex-end; gap: 1.25rem;
-        }
-        .treatment-price {
-            font-family: var(--serif); font-size: 26px; font-style: italic;
-        }
-        .treatment-price span {
-            font-size: 12px; font-style: normal; color: var(--ink-mid);
-            letter-spacing: 0.1em; text-transform: uppercase;
-            font-family: var(--sans); display: block; margin-bottom: 4px;
-        }
-        .treatment-cta {
-            font-family: var(--serif); font-size: 16px; font-style: italic;
-            border-bottom: 1px solid var(--ink); padding-bottom: 2px;
-            transition: color 0.3s, border-color 0.3s;
-        }
-        .treatment-cta:hover { color: var(--ochre-deep); border-color: var(--ochre-deep); }
-
-        /* Gallery */
-        .gallery { background: var(--paper-warm); padding: 9rem 0; }
-        .gallery-header {
-            padding: 0 5rem 4rem; max-width: 1400px; margin: 0 auto;
-            display: flex; justify-content: space-between; align-items: end;
-        }
-        .gallery-header h2 {
-            font-family: var(--serif); font-size: clamp(2.5rem, 5vw, 4.5rem);
-            font-weight: 300; line-height: 0.95; letter-spacing: -0.02em;
-        }
-        .gallery-header h2 em { font-style: italic; color: var(--ochre-deep); }
-        .gallery-eyebrow {
-            font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
-            color: var(--ink-mid); margin-bottom: 1.5rem;
-        }
-        .gallery-grid {
-            display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.5rem;
-            padding: 0 5rem; max-width: 1400px; margin: 0 auto;
-        }
-        .gallery-item { position: relative; overflow: hidden; cursor: pointer; background: var(--ink); }
-        .gallery-item:nth-child(1) { grid-column: span 7; aspect-ratio: 4/3; }
-        .gallery-item:nth-child(2) { grid-column: span 5; aspect-ratio: 4/5; }
-        .gallery-item:nth-child(3) { grid-column: span 4; aspect-ratio: 3/4; }
-        .gallery-item:nth-child(4) { grid-column: span 8; aspect-ratio: 16/9; }
-        .gallery-item:nth-child(5) { grid-column: span 6; aspect-ratio: 4/3; }
-        .gallery-item:nth-child(6) { grid-column: span 6; aspect-ratio: 4/3; }
-        .gallery-item img {
-            width: 100%; height: 100%; object-fit: cover;
-            transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
-            filter: brightness(0.92) saturate(0.85);
-        }
-        .gallery-item:hover img { transform: scale(1.05); filter: brightness(1) saturate(1); }
-        .gallery-item-caption {
-            position: absolute; bottom: 1.5rem; left: 1.5rem;
-            color: var(--cream); font-family: var(--serif); font-style: italic;
-            font-size: 16px; opacity: 0; transform: translateY(10px);
-            transition: opacity 0.4s, transform 0.4s;
-            text-shadow: 0 2px 12px rgba(0,0,0,0.4);
-        }
-        .gallery-item:hover .gallery-item-caption { opacity: 1; transform: translateY(0); }
-
-        /* Testimonials */
-        .testimonials { padding: 9rem 5rem; max-width: 1200px; margin: 0 auto; }
-        .testimonials-label {
-            font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
-            color: var(--ink-mid); text-align: center; margin-bottom: 5rem;
-            display: flex; align-items: center; justify-content: center; gap: 1.5rem;
-        }
-        .testimonials-label::before,
-        .testimonials-label::after {
-            content: ''; display: block; width: 40px; height: 1px; background: var(--ochre);
-        }
-        .testimonial-feature {
-            text-align: center; margin-bottom: 6rem; max-width: 900px;
-            margin-left: auto; margin-right: auto;
-        }
-        .testimonial-feature-quote {
-            font-family: var(--serif); font-size: clamp(1.75rem, 3.5vw, 2.8rem);
-            font-weight: 300; line-height: 1.3; letter-spacing: -0.01em;
-            margin-bottom: 2.5rem; font-style: italic;
-        }
-        .testimonial-feature-quote::before { content: '"'; color: var(--ochre); }
-        .testimonial-feature-quote::after { content: '"'; color: var(--ochre); }
-        .testimonial-attribution {
-            display: flex; justify-content: center; align-items: center; gap: 1.5rem;
-            font-size: 13px; letter-spacing: 0.06em; color: var(--ink-mid);
-        }
-        .testimonial-attribution-name {
-            font-family: var(--serif); font-style: italic; font-size: 18px; color: var(--ink);
-        }
-        .testimonial-attribution-divider { width: 30px; height: 1px; background: var(--rule); }
-
-        .testimonials-secondary {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 4rem;
-            margin-top: 6rem; padding-top: 6rem; border-top: 1px solid var(--rule);
-        }
-        .testimonial-card p {
-            font-family: var(--serif); font-style: italic; font-size: 18px;
-            line-height: 1.5; color: var(--ink-soft); margin-bottom: 1.5rem;
-        }
-        .testimonial-card-author { font-size: 13px; letter-spacing: 0.06em; color: var(--ink-mid); }
-        .testimonial-card-author strong {
-            display: block; font-family: var(--serif); font-style: italic; font-weight: 400;
-            font-size: 16px; color: var(--ink); margin-bottom: 4px; letter-spacing: 0;
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.6rem;
+            background: transparent;
+            color: var(--text-mid);
+            font-family: var(--mono);
+            font-size: 12px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            transition: all 0.25s;
         }
 
-        /* Practice */
-        .practice { background: var(--cream); padding: 9rem 0; }
-        .practice-grid {
-            max-width: 1400px; margin: 0 auto;
-            display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
-            align-items: center; padding: 0 5rem;
-        }
-        .practice-image { aspect-ratio: 4/5; overflow: hidden; }
-        .practice-image img {
-            width: 100%; height: 100%; object-fit: cover;
-            filter: brightness(0.95) saturate(0.85);
-        }
-        .practice-content h2 {
-            font-family: var(--serif); font-size: clamp(2.5rem, 5vw, 4.5rem);
-            font-weight: 300; line-height: 1; letter-spacing: -0.02em; margin-bottom: 2rem;
-        }
-        .practice-content h2 em { font-style: italic; color: var(--ochre-deep); }
-        .practice-content p {
-            font-family: var(--serif); font-size: 19px; font-style: italic;
-            color: var(--ink-soft); line-height: 1.55; margin-bottom: 2rem;
-        }
-        .practice-stats {
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;
-            margin-top: 3rem; padding-top: 3rem; border-top: 1px solid var(--rule);
-        }
-        .practice-stat-num {
-            font-family: var(--serif); font-size: 48px; font-weight: 300;
-            line-height: 1; font-style: italic; margin-bottom: 0.5rem;
-        }
-        .practice-stat-label {
-            font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
-            color: var(--ink-mid);
+        .btn-secondary:hover {
+            border-color: var(--text-dim);
+            color: var(--text);
         }
 
-        /* Booking */
-        .booking { padding: 9rem 5rem; max-width: 900px; margin: 0 auto; text-align: center; }
-        .booking-eyebrow {
-            font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
-            color: var(--ink-mid); margin-bottom: 2rem;
-            display: flex; align-items: center; justify-content: center; gap: 1.5rem;
+        /* ─── Code Block (Hero) ─── */
+        .hero-code {
+            margin-top: 4rem;
+            width: 100%;
+            max-width: 620px;
+            animation: fadeInUp 0.8s ease 0.45s both;
         }
-        .booking-eyebrow::before,
-        .booking-eyebrow::after {
-            content: ''; display: block; width: 40px; height: 1px; background: var(--ochre);
-        }
-        .booking h2 {
-            font-family: var(--serif); font-size: clamp(3rem, 6vw, 5.5rem);
-            font-weight: 300; line-height: 0.95; letter-spacing: -0.02em; margin-bottom: 1.5rem;
-        }
-        .booking h2 em { font-style: italic; color: var(--ochre-deep); }
-        .booking-lede {
-            font-family: var(--serif); font-size: 22px; font-style: italic;
-            color: var(--ink-mid); margin-bottom: 4rem; max-width: 580px;
-            margin-left: auto; margin-right: auto; line-height: 1.5;
-        }
-        .booking-form {
-            text-align: left; display: grid;
-            grid-template-columns: 1fr 1fr; gap: 2.5rem 2rem;
-        }
-        .field { display: flex; flex-direction: column; position: relative; }
-        .field.full { grid-column: span 2; }
-        .field label {
-            font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
-            color: var(--ink-mid); margin-bottom: 0.75rem;
-        }
-        .field input,
-        .field select,
-        .field textarea {
-            background: transparent; border: none; border-bottom: 1px solid var(--ink);
-            padding: 0.85rem 0; font-family: var(--serif); font-size: 19px;
-            color: var(--ink); font-weight: 400; transition: border-color 0.3s; font-style: italic;
-        }
-        .field input:focus, .field select:focus, .field textarea:focus {
-            outline: none; border-bottom-color: var(--ochre);
-        }
-        .field input::placeholder, .field textarea::placeholder { color: var(--ink-light); }
-        .field select {
-            cursor: pointer; appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%231A1815' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat; background-position: right 0 center;
-            padding-right: 1.5rem;
-        }
-        .field textarea { resize: vertical; min-height: 80px; }
 
-        .booking-submit {
-            grid-column: span 2; margin-top: 2rem;
-            background: var(--ink); color: var(--cream); border: none;
-            padding: 1.4rem 2.5rem; font-size: 11px; letter-spacing: 0.18em;
-            text-transform: uppercase; cursor: pointer; transition: background 0.4s;
+        .code-window {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
         }
-        .booking-submit:hover { background: var(--ochre-deep); }
 
-        /* Footer */
-        footer { background: var(--ink); color: var(--paper); padding: 6rem 5rem 3rem; }
-        .footer-grid {
-            max-width: 1400px; margin: 0 auto;
-            display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem;
-            padding-bottom: 4rem; border-bottom: 1px solid rgba(245,241,234,0.1);
+        .code-titlebar {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
         }
-        .footer-brand h3 {
-            font-family: var(--serif); font-size: 36px; font-weight: 400;
-            margin-bottom: 1.5rem; letter-spacing: 0.02em;
-        }
-        .footer-brand h3 em { font-style: italic; color: var(--ochre); }
-        .footer-brand p {
-            font-family: var(--serif); font-style: italic; font-size: 18px;
-            color: rgba(245,241,234,0.65); max-width: 400px; line-height: 1.5;
-        }
-        .footer-col h4 {
-            font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
-            color: rgba(245,241,234,0.5); margin-bottom: 1.5rem;
-        }
-        .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
-        .footer-col li {
-            font-family: var(--serif); font-size: 17px; font-style: italic;
-            color: rgba(245,241,234,0.85); transition: color 0.3s; cursor: pointer;
-        }
-        .footer-col li:hover { color: var(--ochre); }
-        .footer-bottom {
-            max-width: 1400px; margin: 3rem auto 0;
-            display: flex; justify-content: space-between; align-items: center;
-            font-size: 12px; color: rgba(245,241,234,0.5);
-        }
-        .footer-bottom a { color: var(--ochre); font-style: italic; font-family: var(--serif); font-size: 14px; }
 
-        /* Living.js hidden elements */
-        [data-living-after-hours],
-        [data-living-emergency],
-        [data-living-nudge],
-        [data-living-value-prop] { display: none; }
+        .code-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--border-hover);
+        }
 
-        /* Reveal */
-        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 1s ease, transform 1s cubic-bezier(0.22, 1, 0.36, 1); }
-        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .code-filename {
+            margin-left: 0.5rem;
+            font-size: 11px;
+            color: var(--text-dim);
+        }
 
-        /* Responsive */
-        @media (max-width: 968px) {
-            nav { padding: 1.25rem 1.5rem; }
-            .nav-center, .nav-phone { display: none; }
-            .hero { grid-template-columns: 1fr; padding-top: 7rem; }
-            .hero-text { padding: 0 1.5rem 3rem; }
-            .hero-image { height: 60vh; }
-            .philosophy { padding: 5rem 1.5rem; grid-template-columns: 1fr; gap: 2rem; }
-            .philosophy-label { position: static; }
-            .treatments-intro { padding: 4rem 1.5rem 2rem; grid-template-columns: 1fr; gap: 2rem; }
-            .treatments { padding: 2rem 1.5rem 5rem; }
-            .treatment { grid-template-columns: 30px 1fr; gap: 1.5rem; padding: 2rem 0; }
-            .treatment-desc, .treatment-meta { grid-column: 2; }
-            .treatment-meta { text-align: left; align-items: flex-start; margin-top: 1rem; }
-            .gallery { padding: 5rem 0; }
-            .gallery-header { padding: 0 1.5rem 3rem; flex-direction: column; align-items: flex-start; gap: 1rem; }
-            .gallery-grid { padding: 0 1.5rem; gap: 0.75rem; }
-            .gallery-item { grid-column: span 12 !important; aspect-ratio: 4/3 !important; }
-            .testimonials { padding: 5rem 1.5rem; }
-            .testimonials-secondary { grid-template-columns: 1fr; gap: 2.5rem; }
-            .practice { padding: 5rem 0; }
-            .practice-grid { grid-template-columns: 1fr; padding: 0 1.5rem; gap: 2.5rem; }
-            .booking { padding: 5rem 1.5rem; }
-            .booking-form { grid-template-columns: 1fr; gap: 2rem; }
-            .field.full, .booking-submit { grid-column: span 1; }
-            footer { padding: 4rem 1.5rem 2rem; }
-            .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-            .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
-            .demo-banner { font-size: 10px; flex-wrap: wrap; gap: 0.5rem; }
-            .demo-banner-left { flex-wrap: wrap; gap: 0.75rem; }
+        .code-body {
+            padding: 1.25rem 1.5rem;
+            font-size: 13px;
+            line-height: 1.9;
+            overflow-x: auto;
+        }
+
+        .code-body .c-tag { color: #f87171; }
+        .code-body .c-attr { color: #93c5fd; }
+        .code-body .c-str { color: var(--green); }
+        .code-body .c-kw { color: #c084fc; }
+        .code-body .c-fn { color: #fbbf24; }
+        .code-body .c-cm { color: var(--text-dim); font-style: italic; }
+        .code-body .c-obj { color: #67e8f9; }
+        .code-body .c-num { color: #fb923c; }
+
+        /* ─── Architecture Section ─── */
+        .section {
+            padding: 8rem 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: var(--serif);
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 400;
+            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+        }
+
+        .section-subtitle {
+            color: var(--text-dim);
+            font-size: 14px;
+            max-width: 560px;
+            margin-bottom: 4rem;
+        }
+
+        /* Pillars */
+        .pillars {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .pillar {
+            background: var(--surface);
+            padding: 2.5rem 2rem;
+            transition: background 0.3s;
+        }
+
+        .pillar:hover {
+            background: var(--surface-2);
+        }
+
+        .pillar-icon {
+            font-size: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .pillar-name {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+        }
+
+        .pillar-desc {
+            font-size: 13px;
+            color: var(--text-dim);
+            line-height: 1.8;
+        }
+
+        .pillar-list {
+            margin-top: 1.25rem;
+            list-style: none;
+        }
+
+        .pillar-list li {
+            font-size: 12px;
+            color: var(--text-mid);
+            padding: 0.3rem 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .pillar-list li::before {
+            content: '→ ';
+            color: var(--accent);
+        }
+
+        /* ─── The Problem / Solution ─── */
+        .problem-section {
+            padding: 6rem 2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            border-top: 1px solid var(--border);
+        }
+
+        .problem-text {
+            font-family: var(--serif);
+            font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+            line-height: 1.7;
+            font-weight: 400;
+            color: var(--text-mid);
+        }
+
+        .problem-text em {
+            font-style: italic;
+            color: var(--accent);
+        }
+
+        .problem-text strong {
+            color: var(--text);
+            font-weight: 400;
+        }
+
+        /* ─── Features Grid ─── */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .feature {
+            background: var(--surface);
+            padding: 2rem;
+            transition: background 0.3s;
+        }
+
+        .feature:hover { background: var(--surface-2); }
+
+        .feature-name {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-desc {
+            font-size: 13px;
+            color: var(--text-dim);
+        }
+
+        .feature-tag {
+            display: inline-block;
+            margin-top: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            background: var(--accent-dim);
+            border-radius: 4px;
+            font-size: 10px;
+            color: var(--accent);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        /* ─── Presets ─── */
+        .presets-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        .preset-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .preset-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+        }
+
+        .preset-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .preset-name {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .preset-value {
+            font-size: 11px;
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+        }
+
+        .preset-desc {
+            font-size: 12px;
+            color: var(--text-dim);
+        }
+
+        /* ─── Comparison Table ─── */
+        .comparison {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            font-size: 13px;
+        }
+
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 1.5fr repeat(3, 1fr);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comparison-row:last-child { border-bottom: none; }
+
+        .comparison-row.header {
+            background: var(--surface);
+        }
+
+        .comparison-row.header .comparison-cell {
+            font-weight: 600;
+            color: var(--text);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-size: 11px;
+        }
+
+        .comparison-cell {
+            padding: 1rem 1.25rem;
+            color: var(--text-dim);
+            border-right: 1px solid var(--border);
+        }
+
+        .comparison-cell:last-child { border-right: none; }
+
+        .comparison-cell.highlight {
+            background: var(--accent-dim);
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .comparison-cell .yes { color: var(--green); }
+        .comparison-cell .no { color: var(--text-dim); }
+        .comparison-cell .partial { color: #fbbf24; }
+
+        /* ─── CTA Section ─── */
+        .cta-section {
+            padding: 8rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            position: relative;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 500px;
+            height: 400px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cta-title {
+            font-family: var(--serif);
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 400;
+            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+        }
+
+        .cta-sub {
+            color: var(--text-dim);
+            font-size: 14px;
+            margin-bottom: 3rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-code {
+            display: inline-block;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem 1.5rem;
+            font-size: 13px;
+            margin-bottom: 2rem;
+            color: var(--text-mid);
+        }
+
+        .cta-code .c-accent { color: var(--accent); }
+
+        /* ─── Footer ─── */
+        footer {
+            padding: 2.5rem 2rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1100px;
+            margin: 0 auto;
+            font-size: 12px;
+            color: var(--text-dim);
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        footer a:hover { text-decoration: underline; }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        /* ─── Animations ─── */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 768px) {
+            .topbar-nav a:not(.topbar-github) { display: none; }
+            .hero { padding: 6rem 1.5rem 3rem; }
+            .section { padding: 5rem 1.5rem; }
+            .pillars { grid-template-columns: 1fr; }
+            .features-grid { grid-template-columns: 1fr; }
+            .presets-grid { grid-template-columns: repeat(2, 1fr); }
+            .comparison-row { grid-template-columns: 1.2fr repeat(3, 1fr); font-size: 11px; }
+            .comparison-cell { padding: 0.75rem; }
+            .hero-actions { flex-direction: column; }
+        }
+
+        @media (max-width: 480px) {
+            .presets-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Living.js Demo Banner -->
-    <div class="demo-banner">
-        <div class="demo-banner-left">
-            <span><span class="bolt">✦</span> Living.js · live demo</span>
-            <span class="demo-banner-label">engagement</span>
-            <span class="demo-banner-score" id="demo-score">0</span>
-            <span class="demo-banner-intent" id="demo-intent">browsing</span>
+    <!-- Top Bar -->
+    <header class="topbar">
+        <div class="topbar-logo">
+            <span class="bolt">⚡</span> Living.js
         </div>
-        <a href="https://livingjs.australianweb.agency">← back to Living.js</a>
-    </div>
-
-    <!-- Navigation -->
-    <nav id="mainNav">
-        <a href="#" class="nav-logo">Luminous<span class="nav-logo-mark">.</span></a>
-        <ul class="nav-center">
-            <li><a href="#treatments">Treatments</a></li>
-            <li><a href="#lookbook">Lookbook</a></li>
-            <li><a href="#practice">The Practice</a></li>
-            <li><a href="#booking">Inquire</a></li>
-        </ul>
-        <div class="nav-right">
-            <span class="nav-phone">+61 2 8000 1234</span>
-            <a href="#booking" class="nav-cta" data-living-cta>Inquire</a>
-        </div>
-    </nav>
+        <nav class="topbar-nav">
+            <a href="#how-it-works">Architecture</a>
+            <a href="#presets">Presets</a>
+            <a href="#demo">Demo</a>
+            <a href="https://github.com/chrisconen/livingjs" target="_blank" class="topbar-github">
+                <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                GitHub
+            </a>
+        </nav>
+    </header>
 
     <!-- Hero -->
     <section class="hero">
-        <div class="hero-text">
-            <p class="hero-eyebrow">Established Sydney · Since 2009</p>
-            <h1 class="hero-title">A smile,<br>considered &amp;<br><em>composed</em>.</h1>
-            <p class="hero-lede">Cosmetic dentistry at the intersection of surgical precision and artistic intention. For those who understand that the difference is in the millimetre.</p>
-            <div class="hero-cta-row">
-                <a href="#booking" class="btn-primary" data-living-cta>
-                    <span>Begin a Consultation</span>
-                    <span>→</span>
-                </a>
-                <a href="#treatments" class="btn-link">View treatments</a>
-            </div>
-        </div>
-        <div class="hero-image">
-            <img src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Premium dental practice interior">
-            <div class="hero-image-caption">Vol. 01 — The Smile Edition</div>
-        </div>
-    </section>
-
-    <!-- Marquee -->
-    <div class="marquee">
-        <div class="marquee-track">
-            <span>Porcelain Veneers</span>
-            <span>Surgical Implants</span>
-            <span>Complete Smile Design</span>
-            <span>In-Chair Whitening</span>
-            <span>Invisalign Clear Aligners</span>
-            <span>Restorative Crowns</span>
-            <span>Porcelain Veneers</span>
-            <span>Surgical Implants</span>
-            <span>Complete Smile Design</span>
-            <span>In-Chair Whitening</span>
-            <span>Invisalign Clear Aligners</span>
-            <span>Restorative Crowns</span>
-        </div>
-    </div>
-
-    <!-- Philosophy -->
-    <section class="philosophy reveal">
-        <div class="philosophy-label">— Philosophy</div>
-        <div class="philosophy-text">
-            We do not believe in standard outcomes. Every face is a study in proportion, every smile a question of geometry and grace. We answer with <em>millimetres</em>, with <em>shade gradations</em>, with the patience of a sculptor and the precision of a surgeon.
-            <span class="pull">The result is not a brighter smile. It is your smile — recovered, refined, restored.</span>
-        </div>
-    </section>
-
-    <!-- Treatments -->
-    <section id="treatments">
-        <div class="treatments-intro reveal">
-            <h2>Curated<br>treatments,<br><em>quietly delivered</em>.</h2>
-            <p>Each procedure is undertaken by a single principal clinician. No assistants on the chair. No production-line dentistry. Time is allocated generously, by design.</p>
+        <div class="hero-badge">
+            <span class="dot"></span>
+            <span>v0.1.0 — open source</span>
         </div>
 
-        <div class="treatments">
-            <div class="treatment reveal" data-living-pricing>
-                <div class="treatment-num">01</div>
-                <div class="treatment-name">
-                    <h3>Porcelain <em>Veneers</em></h3>
-                    <div class="duration">2–3 visits · 4 weeks</div>
-                </div>
-                <p class="treatment-desc">Ultra-thin, hand-layered porcelain shells, individually crafted by our master ceramist in Melbourne. Designed to refract light as natural enamel does. Twenty-year median lifespan.</p>
-                <div class="treatment-meta">
-                    <div class="treatment-price"><span>From</span>$1,200 per unit</div>
-                    <a href="#booking" class="treatment-cta">Inquire</a>
-                </div>
-            </div>
+        <h1 class="hero-title">Your website<br>is now <em>alive</em></h1>
 
-            <div class="treatment reveal" data-living-pricing>
-                <div class="treatment-num">02</div>
-                <div class="treatment-name">
-                    <h3>Surgical <em>Implants</em></h3>
-                    <div class="duration">3–6 months · titanium</div>
-                </div>
-                <p class="treatment-desc">Single tooth and full-arch implantation by our oral surgeon, working from CBCT-guided templates. Premium-grade Swiss titanium, zirconia ceramic restoration, indefinite warranty on the post.</p>
-                <div class="treatment-meta">
-                    <div class="treatment-price"><span>From</span>$4,500</div>
-                    <a href="#booking" class="treatment-cta">Inquire</a>
-                </div>
-            </div>
+        <p class="hero-sub">
+            One script tag turns any static website into an autonomous AI agent.
+            It watches. It decides. It acts. No backend. No database.
+        </p>
 
-            <div class="treatment reveal" data-living-pricing>
-                <div class="treatment-num">03</div>
-                <div class="treatment-name">
-                    <h3>Complete Smile <em>Design</em></h3>
-                    <div class="duration">3–6 months · bespoke</div>
-                </div>
-                <p class="treatment-desc">A comprehensive aesthetic plan. We model your face, your bite, your light. Whitening, alignment, contouring, veneer placement — orchestrated as one. Includes facial analysis with our prosthodontist.</p>
-                <div class="treatment-meta">
-                    <div class="treatment-price"><span>From</span>$12,000</div>
-                    <a href="#booking" class="treatment-cta">Inquire</a>
-                </div>
-            </div>
+        <div class="hero-actions">
+            <a href="https://github.com/chrisconen/livingjs" class="btn-primary" target="_blank">
+                Get Started →
+            </a>
+            <a href="#demo" class="btn-secondary">
+                See Demo
+            </a>
+        </div>
 
-            <div class="treatment reveal" data-living-pricing>
-                <div class="treatment-num">04</div>
-                <div class="treatment-name">
-                    <h3>In-Chair <em>Whitening</em></h3>
-                    <div class="duration">90 minutes · single visit</div>
+        <!-- Code Preview -->
+        <div class="hero-code">
+            <div class="code-window">
+                <div class="code-titlebar">
+                    <div class="code-dot"></div>
+                    <div class="code-dot"></div>
+                    <div class="code-dot"></div>
+                    <span class="code-filename">your-website.html</span>
                 </div>
-                <p class="treatment-desc">Professional Zoom whitening, performed in a single session. Up to eight shades lighter, immediately visible. Custom take-home trays included for ongoing maintenance.</p>
-                <div class="treatment-meta">
-                    <div class="treatment-price"><span>From</span>$695</div>
-                    <a href="#booking" class="treatment-cta">Inquire</a>
-                </div>
-            </div>
+                <div class="code-body">
+<pre><span class="c-tag">&lt;script</span> <span class="c-attr">type</span>=<span class="c-str">"module"</span><span class="c-tag">&gt;</span>
+  <span class="c-kw">import</span> <span class="c-obj">Living</span> <span class="c-kw">from</span> <span class="c-str">'livingjs'</span>;
 
-            <div class="treatment reveal" data-living-pricing>
-                <div class="treatment-num">05</div>
-                <div class="treatment-name">
-                    <h3>Invisalign <em>Aligners</em></h3>
-                    <div class="duration">6–18 months · clear</div>
-                </div>
-                <p class="treatment-desc">Bespoke orthodontic correction through transparent thermoplastic aligners. Treatment plans calibrated using ClinCheck 3D modelling. Discreet to the point of invisibility.</p>
-                <div class="treatment-meta">
-                    <div class="treatment-price"><span>From</span>$4,200</div>
-                    <a href="#booking" class="treatment-cta">Inquire</a>
-                </div>
-            </div>
+  <span class="c-obj">Living</span>.<span class="c-fn">init</span>({
+    <span class="c-attr">business</span>: <span class="c-str">'cosmetic-dental'</span>,
+    <span class="c-attr">location</span>: <span class="c-str">'Sydney'</span>,
+  });
 
-            <div class="treatment reveal" data-living-pricing>
-                <div class="treatment-num">06</div>
-                <div class="treatment-name">
-                    <h3>Restorative <em>Crowns</em></h3>
-                    <div class="duration">1 day · CEREC</div>
-                </div>
-                <p class="treatment-desc">Same-day ceramic crowns, milled in-house from a single block of medical-grade zirconia. CEREC digital impression — no putty, no compromise. Walk in damaged, walk out whole.</p>
-                <div class="treatment-meta">
-                    <div class="treatment-price"><span>From</span>$1,500</div>
-                    <a href="#booking" class="treatment-cta">Inquire</a>
+  <span class="c-cm">// That's it. Your website thinks now.</span>
+<span class="c-tag">&lt;/script&gt;</span></pre>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Lookbook -->
-    <section class="gallery" id="lookbook">
-        <div class="gallery-header reveal">
-            <div>
-                <p class="gallery-eyebrow">— Lookbook</p>
-                <h2>Six years of <em>quiet results</em>.</h2>
-            </div>
-            <p style="max-width: 360px; font-family: var(--serif); font-style: italic; color: var(--ink-mid); font-size: 18px;">Selected work from our consenting patient archive. Each smile, considered.</p>
-        </div>
+    <!-- The Story -->
+    <section class="problem-section reveal">
+        <p class="problem-text">
+            It's 11 PM. Someone Googles <em>"cosmetic dentist near me."</em>
+            They land on your website. They're ready to book.<br><br>
+            But your website is <strong>a brochure</strong>. It can't think.
+            It can't qualify. It can't book. That visitor leaves — and books
+            with your competitor who had a living website.<br><br>
+            <strong>One patient lost. One $15,000 smile makeover — gone.</strong><br><br>
+            Living.js fixes this. <em>Permanently.</em>
+        </p>
+    </section>
 
-        <div class="gallery-grid reveal">
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1581585504193-72b56d6cc8e6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Smile design consultation">
-                <div class="gallery-item-caption">Veneers · 8 units · 2024</div>
+    <!-- Architecture -->
+    <section class="section reveal" id="how-it-works">
+        <p class="section-label">Architecture</p>
+        <h2 class="section-title">Three pillars. Zero complexity.</h2>
+        <p class="section-subtitle">Observer watches. Brain decides. Actor executes. The whole loop runs in the browser — no server, no latency, no cost.</p>
+
+        <div class="pillars">
+            <div class="pillar">
+                <div class="pillar-icon">👁</div>
+                <div class="pillar-name">Observer</div>
+                <p class="pillar-desc">Passive behavioral tracking. Knows everything about the visitor without asking a single question.</p>
+                <ul class="pillar-list">
+                    <li>Scroll depth & velocity</li>
+                    <li>Click patterns & targets</li>
+                    <li>Time on sections</li>
+                    <li>Device, hour, referral source</li>
+                    <li>Return visit detection</li>
+                    <li>Engagement score 0–100</li>
+                </ul>
             </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Practice detail">
-                <div class="gallery-item-caption">Dr. Chen consultation room</div>
+            <div class="pillar">
+                <div class="pillar-icon">🧠</div>
+                <div class="pillar-name">Brain</div>
+                <p class="pillar-desc">Rule engine handles 80% of decisions instantly. AI handles the rest. Everything gets cached.</p>
+                <ul class="pillar-list">
+                    <li>8 built-in behavioral rules</li>
+                    <li>Intent classification</li>
+                    <li>Urgency scoring 1–10</li>
+                    <li>AI fallback (Claude / GPT)</li>
+                    <li>Signal fingerprint caching</li>
+                    <li>Industry-aware context</li>
+                </ul>
             </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Smile detail">
-                <div class="gallery-item-caption">Smile design · client portrait</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Practice interior">
-                <div class="gallery-item-caption">Theatre · sterile zone</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80" alt="Confident smile">
-                <div class="gallery-item-caption">Complete smile design · 2024</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1530497610245-94d3c16cda28?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80" alt="Patient portrait">
-                <div class="gallery-item-caption">Implant restoration · 2023</div>
+            <div class="pillar">
+                <div class="pillar-icon">⚡</div>
+                <div class="pillar-name">Actor</div>
+                <p class="pillar-desc">Makes it happen. Morphs the page, shows modals, calls external services via MCP.</p>
+                <ul class="pillar-list">
+                    <li>Swap CTAs dynamically</li>
+                    <li>Show/hide relevant content</li>
+                    <li>Emergency & exit modals</li>
+                    <li>MCP tool execution</li>
+                    <li>Webhook integration</li>
+                    <li>Smooth DOM transitions</li>
+                </ul>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials -->
-    <section class="testimonials">
-        <p class="testimonials-label">— In their words</p>
+    <!-- Features -->
+    <section class="section reveal">
+        <p class="section-label">Behaviors</p>
+        <h2 class="section-title">Pre-built intelligence. One word to activate.</h2>
+        <p class="section-subtitle">Each behavior is a composable module. Enable what you need. They don't conflict.</p>
 
-        <div class="testimonial-feature reveal">
-            <p class="testimonial-feature-quote">For ten years I had not allowed myself to smile in photographs. I tried — and discarded — three other clinics before finding Luminous. The result is not a different smile. It is, finally, mine.</p>
-            <div class="testimonial-attribution">
-                <span>Sarah K.</span>
-                <span class="testimonial-attribution-divider"></span>
-                <span class="testimonial-attribution-name">Porcelain Veneers, 8 units</span>
+        <div class="features-grid">
+            <div class="feature">
+                <p class="feature-name">Emergency Detect</p>
+                <p class="feature-desc">Phone clicks + after hours + deep scroll = surface emergency callback form with SMS notification to owner.</p>
+                <span class="feature-tag">urgency: 10</span>
             </div>
-        </div>
-
-        <div class="testimonials-secondary reveal">
-            <div class="testimonial-card">
-                <p>"They quoted me three times what the local clinic did. They also delivered a result the local clinic could not have approached. I would do it again, tomorrow."</p>
-                <div class="testimonial-card-author">
-                    <strong>Michael T.</strong>
-                    Single Tooth Implant
-                </div>
+            <div class="feature">
+                <p class="feature-name">Lead Qualify</p>
+                <p class="feature-desc">Smart multi-step qualification based on behavioral signals. No chatbot. No forms. The page itself asks the right questions.</p>
+                <span class="feature-tag">conversion</span>
             </div>
-            <div class="testimonial-card">
-                <p>"The consultation alone was worth the trip from Melbourne. They explained the structural geometry of my face. I had not expected dentistry to feel like this."</p>
-                <div class="testimonial-card-author">
-                    <strong>Emma L.</strong>
-                    Complete Smile Design
-                </div>
+            <div class="feature">
+                <p class="feature-name">After Hours</p>
+                <p class="feature-desc">Different UX outside business hours. Surfaces online booking, hides phone CTAs, adapts messaging to "closed but available."</p>
+                <span class="feature-tag">24/7</span>
             </div>
-            <div class="testimonial-card">
-                <p>"Booked online at midnight when I cracked a crown. The callback at 8am the next morning was from the surgeon himself. That detail told me everything."</p>
-                <div class="testimonial-card-author">
-                    <strong>James W.</strong>
-                    Emergency Crown
-                </div>
+            <div class="feature">
+                <p class="feature-name">Exit Intent</p>
+                <p class="feature-desc">Detects engaged visitors about to leave. Offers the right incentive based on their browsing pattern — not a generic popup.</p>
+                <span class="feature-tag">retention</span>
             </div>
-        </div>
-    </section>
-
-    <!-- Practice -->
-    <section class="practice" id="practice">
-        <div class="practice-grid">
-            <div class="practice-image reveal">
-                <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80" alt="Dental practice interior">
+            <div class="feature">
+                <p class="feature-name">Return Visitor</p>
+                <p class="feature-desc">Remembers returning visitors. Changes CTAs from "Learn More" to "Welcome Back — Ready to Get Started?" on visit #3+.</p>
+                <span class="feature-tag">personalization</span>
             </div>
-            <div class="practice-content reveal">
-                <h2>An address, &amp; <em>an approach</em>.</h2>
-                <p>Luminous occupies a heritage townhouse in Sydney CBD, restored in 2019 by Studio Coombes. Three treatment rooms, a private consultation suite, an in-house ceramics laboratory, and a courtyard.</p>
-                <p>We see no more than twelve patients per day, across two surgeons. We answer the phone ourselves. We do not run marketing.</p>
-                <p>You will not be sold to. You will be considered.</p>
-
-                <div class="practice-stats">
-                    <div>
-                        <div class="practice-stat-num">5,000+</div>
-                        <div class="practice-stat-label">Smiles restored</div>
-                    </div>
-                    <div>
-                        <div class="practice-stat-num">15</div>
-                        <div class="practice-stat-label">Years of practice</div>
-                    </div>
-                    <div>
-                        <div class="practice-stat-num">12</div>
-                        <div class="practice-stat-label">Patients per day max</div>
-                    </div>
-                    <div>
-                        <div class="practice-stat-num">4.9</div>
-                        <div class="practice-stat-label">Google rating</div>
-                    </div>
-                </div>
+            <div class="feature">
+                <p class="feature-name">MCP Native</p>
+                <p class="feature-desc">Book directly to Google Calendar, charge via Stripe, send confirmations via Gmail — all through Model Context Protocol.</p>
+                <span class="feature-tag">integration</span>
             </div>
         </div>
     </section>
 
-    <!-- Booking -->
-    <section class="booking" id="booking" data-living-booking>
-        <p class="booking-eyebrow">— Begin</p>
-        <h2>Inquiries are <em>welcomed</em>.</h2>
-        <p class="booking-lede">Initial consultations are complimentary and last approximately ninety minutes. We will discuss what is possible, and what is right.</p>
+    <!-- Industry Presets -->
+    <section class="section reveal" id="presets">
+        <p class="section-label">Industry Presets</p>
+        <h2 class="section-title">One word. Entire industry configuration.</h2>
+        <p class="section-subtitle">Each preset knows the services, price ranges, urgency patterns, and conversion behaviors specific to that industry.</p>
 
-        <form class="booking-form" data-living-form="booking">
-            <div class="field">
-                <label>Your name</label>
-                <input type="text" name="name" placeholder="First &amp; surname" required>
+        <div class="presets-grid">
+            <div class="preset-card">
+                <div class="preset-icon">🦷</div>
+                <p class="preset-name">Cosmetic Dental</p>
+                <p class="preset-value">$3K–$15K per case</p>
+                <p class="preset-desc">Veneers, implants, smile makeovers. Emergency pain detection. After-hours booking.</p>
             </div>
-            <div class="field">
-                <label>Email</label>
-                <input type="email" name="email" placeholder="you@email.com" required>
+            <div class="preset-card">
+                <div class="preset-icon">💉</div>
+                <p class="preset-name">Med Spa</p>
+                <p class="preset-value">$500–$5K per visit</p>
+                <p class="preset-desc">Botox, fillers, laser treatments. Discreet browsing patterns. Treatment package upsell.</p>
             </div>
-            <div class="field">
-                <label>Telephone</label>
-                <input type="tel" name="phone" placeholder="+61 ..." required>
+            <div class="preset-card">
+                <div class="preset-icon">⚖️</div>
+                <p class="preset-name">Personal Injury Law</p>
+                <p class="preset-value">$10K–$100K+ per case</p>
+                <p class="preset-desc">Accident cases. Urgent intake. SMS alerts to attorneys. High-value case detection.</p>
             </div>
-            <div class="field">
-                <label>Treatment of interest</label>
-                <select name="treatment" required>
-                    <option value="" disabled selected>Please choose...</option>
-                    <option value="veneers">Porcelain Veneers</option>
-                    <option value="implants">Surgical Implants</option>
-                    <option value="smile-design">Complete Smile Design</option>
-                    <option value="whitening">In-Chair Whitening</option>
-                    <option value="invisalign">Invisalign Aligners</option>
-                    <option value="crowns">Restorative Crowns</option>
-                    <option value="emergency">Urgent / pain</option>
-                    <option value="other">Something else</option>
-                </select>
+            <div class="preset-card">
+                <div class="preset-icon">🏠</div>
+                <p class="preset-name">Real Estate</p>
+                <p class="preset-value">$5K–$30K commission</p>
+                <p class="preset-desc">Buyer vs. seller detection. Pre-approval signals. Inspection scheduling via MCP.</p>
             </div>
-            <div class="field full">
-                <label>How may we help</label>
-                <textarea name="message" placeholder="Tell us what you are considering..." rows="3"></textarea>
+        </div>
+    </section>
+
+    <!-- Comparison -->
+    <section class="section reveal">
+        <p class="section-label">Why Living.js</p>
+        <h2 class="section-title">Not a chatbot. Not a workflow. A new category.</h2>
+
+        <div class="comparison">
+            <div class="comparison-row header">
+                <div class="comparison-cell"></div>
+                <div class="comparison-cell">Chatbots</div>
+                <div class="comparison-cell">N8N / Make</div>
+                <div class="comparison-cell highlight">Living.js</div>
             </div>
-            <button type="submit" class="booking-submit">Submit Inquiry →</button>
-        </form>
+            <div class="comparison-row">
+                <div class="comparison-cell">Setup time</div>
+                <div class="comparison-cell">Hours</div>
+                <div class="comparison-cell">Days–weeks</div>
+                <div class="comparison-cell highlight">5 minutes</div>
+            </div>
+            <div class="comparison-row">
+                <div class="comparison-cell">Requires backend</div>
+                <div class="comparison-cell"><span class="no">Yes</span></div>
+                <div class="comparison-cell"><span class="no">Yes</span></div>
+                <div class="comparison-cell highlight"><span class="yes">No</span></div>
+            </div>
+            <div class="comparison-row">
+                <div class="comparison-cell">Adapts the UI</div>
+                <div class="comparison-cell"><span class="no">No</span></div>
+                <div class="comparison-cell"><span class="no">No</span></div>
+                <div class="comparison-cell highlight"><span class="yes">Yes</span></div>
+            </div>
+            <div class="comparison-row">
+                <div class="comparison-cell">MCP native</div>
+                <div class="comparison-cell"><span class="no">No</span></div>
+                <div class="comparison-cell"><span class="partial">Partial</span></div>
+                <div class="comparison-cell highlight"><span class="yes">Yes</span></div>
+            </div>
+            <div class="comparison-row">
+                <div class="comparison-cell">Industry presets</div>
+                <div class="comparison-cell"><span class="no">No</span></div>
+                <div class="comparison-cell"><span class="no">No</span></div>
+                <div class="comparison-cell highlight"><span class="yes">Yes</span></div>
+            </div>
+            <div class="comparison-row">
+                <div class="comparison-cell">Open source</div>
+                <div class="comparison-cell"><span class="no">Mostly no</span></div>
+                <div class="comparison-cell"><span class="partial">Partial</span></div>
+                <div class="comparison-cell highlight"><span class="yes">MIT</span></div>
+            </div>
+            <div class="comparison-row">
+                <div class="comparison-cell">Cost</div>
+                <div class="comparison-cell">$50–500/mo</div>
+                <div class="comparison-cell">$0–100/mo</div>
+                <div class="comparison-cell highlight">$0</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo CTA -->
+    <section class="section reveal" id="demo" style="text-align:center;">
+        <p class="section-label">Live Demo</p>
+        <h2 class="section-title" style="max-width:none;">See it in action</h2>
+        <p class="section-subtitle" style="margin-left:auto; margin-right:auto;">
+            A complete cosmetic dental website powered by Living.js. Open DevTools console. Browse normally. Watch the AI decide.
+        </p>
+        <a href="https://github.com/chrisconen/livingjs/tree/main/examples/cosmetic-dental-demo" class="btn-primary" target="_blank" style="margin-top:1rem;">
+            Open Dental Demo →
+        </a>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="cta-section reveal">
+        <h2 class="cta-title">Get started in <em>60 seconds</em></h2>
+        <p class="cta-sub">Add two lines to any HTML page. Your website starts thinking immediately.</p>
+
+        <div class="cta-code">
+            npm install <span class="c-accent">livingjs</span>
+        </div>
+
+        <br><br>
+
+        <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+            <a href="https://github.com/chrisconen/livingjs" class="btn-primary" target="_blank">
+                GitHub →
+            </a>
+            <a href="https://github.com/chrisconen/livingjs#quick-start" class="btn-secondary" target="_blank">
+                Read Docs
+            </a>
+        </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <h3>Luminous<em>.</em></h3>
-                <p>A considered cosmetic dental practice. Sydney CBD, by appointment only.</p>
-            </div>
-            <div class="footer-col">
-                <h4>The Practice</h4>
-                <ul>
-                    <li>Treatments</li>
-                    <li>Lookbook</li>
-                    <li>Our team</li>
-                    <li>Press</li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Visit</h4>
-                <ul>
-                    <li>42 Hunter Street</li>
-                    <li>Sydney CBD 2000</li>
-                    <li>+61 2 8000 1234</li>
-                    <li>hello@luminous.dental</li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Hours</h4>
-                <ul>
-                    <li>Mon — Fri 8 to 5</li>
-                    <li>Saturday by request</li>
-                    <li>Sunday closed</li>
-                    <li>24h emergency</li>
-                </ul>
-            </div>
+        <div>
+            ⚡ Living.js — MIT License<br>
+            Built by <a href="https://australianweb.agency" target="_blank">The Centaur Covenant</a>
         </div>
-        <div class="footer-bottom">
-            <span>© 2026 Luminous Dental Studio · Sydney, Australia</span>
-            <span>Living website by <a href="https://livingjs.australianweb.agency">Living.js</a> · <a href="https://australianweb.agency">Australian Web Agency</a></span>
+        <div class="footer-links">
+            <a href="https://github.com/chrisconen/livingjs" target="_blank">GitHub</a>
+            <a href="https://australianweb.agency" target="_blank">Agency</a>
         </div>
     </footer>
 
-    <!-- Living.js Inline Bundle -->
+    <!-- Scroll Reveal -->
     <script>
-    (function() {
-        'use strict';
-
-        class Observer {
-            constructor(config = {}) {
-                this.signals = {
-                    scrollDepth: 0, maxScrollDepth: 0, timeOnPage: 0,
-                    timeOnSections: {}, clicks: [], clickCount: 0,
-                    source: this._detectSource(),
-                    device: this._detectDevice(),
-                    hour: new Date().getHours(),
-                    isAfterHours: false, isWeekend: false,
-                    isReturning: false, visitCount: 0,
-                    exitIntentFired: false, idleTime: 0, engagementScore: 0,
-                    urgencySignals: [], sectionsViewed: new Set(),
-                    formInteractions: 0, phoneClickAttempts: 0,
-                };
-                this.config = config;
-                this._startTime = Date.now();
-                this._lastActivity = Date.now();
-                this._callbacks = new Map();
-            }
-
-            start() {
-                this._detectReturnVisitor();
-                this._detectTimeContext();
-                this._trackScroll();
-                this._trackClicks();
-                this._trackSections();
-                this._trackIdle();
-                this._trackExitIntent();
-                this._trackForms();
-                setInterval(() => { this.signals.engagementScore = this._calculateEngagement(); }, 3000);
-                return this;
-            }
-
-            on(event, callback) {
-                if (!this._callbacks.has(event)) this._callbacks.set(event, []);
-                this._callbacks.get(event).push(callback);
-            }
-
-            _emit(event, data) {
-                (this._callbacks.get(event) || []).forEach(cb => cb(data, this.signals));
-            }
-
-            getSignals() {
-                this.signals.timeOnPage = Math.round((Date.now() - this._startTime) / 1000);
-                this.signals.engagementScore = this._calculateEngagement();
-                return { ...this.signals, sectionsViewed: [...this.signals.sectionsViewed] };
-            }
-
-            _detectSource() {
-                const params = new URLSearchParams(location.search);
-                if (params.get('utm_source')) return params.get('utm_source');
-                const ref = document.referrer;
-                if (!ref) return 'direct';
-                if (ref.includes('google')) return 'google-organic';
-                return 'referral';
-            }
-
-            _detectDevice() {
-                const w = window.innerWidth;
-                return { type: w < 768 ? 'mobile' : w < 1024 ? 'tablet' : 'desktop' };
-            }
-
-            _detectReturnVisitor() {
-                try {
-                    const data = JSON.parse(localStorage.getItem('_living_visitor') || 'null');
-                    if (data) {
-                        this.signals.isReturning = true;
-                        this.signals.visitCount = (data.count || 0) + 1;
-                        localStorage.setItem('_living_visitor', JSON.stringify({ count: this.signals.visitCount, firstVisit: data.firstVisit, lastVisit: Date.now() }));
-                    } else {
-                        this.signals.visitCount = 1;
-                        localStorage.setItem('_living_visitor', JSON.stringify({ count: 1, firstVisit: Date.now(), lastVisit: Date.now() }));
-                    }
-                } catch(e) {}
-            }
-
-            _detectTimeContext() {
-                const hour = new Date().getHours();
-                const bh = this.config.business?.hours || { start: 9, end: 17 };
-                this.signals.hour = hour;
-                this.signals.isAfterHours = hour < bh.start || hour >= bh.end;
-                if (hour >= 22 || hour <= 5) this.signals.urgencySignals.push('late-night-browsing');
-            }
-
-            _trackScroll() {
-                let ticking = false;
-                window.addEventListener('scroll', () => {
-                    if (ticking) return;
-                    ticking = true;
-                    requestAnimationFrame(() => {
-                        const depth = Math.round((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100) || 0;
-                        this.signals.scrollDepth = depth;
-                        if (depth > this.signals.maxScrollDepth) this.signals.maxScrollDepth = depth;
-                        if (depth > 75 && !this.signals.urgencySignals.includes('deep-scroll')) {
-                            this.signals.urgencySignals.push('deep-scroll');
-                        }
-                        this._lastActivity = Date.now();
-                        ticking = false;
-                    });
-                }, { passive: true });
-            }
-
-            _trackClicks() {
-                document.addEventListener('click', (e) => {
-                    const target = e.target.closest('a, button, [data-living]');
-                    if (!target) return;
-                    this.signals.clickCount++;
-                    this._lastActivity = Date.now();
-                    if (target.href && target.href.startsWith('tel:')) {
-                        this.signals.phoneClickAttempts++;
-                        this.signals.urgencySignals.push('phone-click');
-                        this._emit('phone-click', {});
-                    }
-                    if (target.matches('[data-living-cta]')) this._emit('cta-click', {});
-                    if (target.closest('[data-living-pricing]')) {
-                        if (!this.signals.urgencySignals.includes('pricing-interest')) {
-                            this.signals.urgencySignals.push('pricing-interest');
-                        }
-                        this._emit('pricing-interest', {});
-                    }
-                }, { passive: true });
-            }
-
-            _trackSections() {
-                const sections = document.querySelectorAll('section, [id]');
-                if (!sections.length) return;
-                new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        const id = entry.target.id || entry.target.tagName;
-                        if (entry.isIntersecting) this.signals.sectionsViewed.add(id);
-                    });
-                }, { threshold: 0.3 }).observe(sections[0]);
-                sections.forEach(s => {
-                    new IntersectionObserver((entries) => {
-                        entries.forEach(entry => {
-                            const id = entry.target.id || entry.target.tagName;
-                            if (entry.isIntersecting) this.signals.sectionsViewed.add(id);
-                        });
-                    }, { threshold: 0.3 }).observe(s);
-                });
-            }
-
-            _trackForms() {
-                document.addEventListener('focusin', (e) => {
-                    if (e.target.matches('input, textarea, select')) {
-                        this.signals.formInteractions++;
-                        this._lastActivity = Date.now();
-                    }
-                }, { passive: true });
-            }
-
-            _trackIdle() {
-                setInterval(() => {
-                    const idle = Math.round((Date.now() - this._lastActivity) / 1000);
-                    this.signals.idleTime = idle;
-                    if (idle > 30 && idle < 35) this._emit('idle', { seconds: idle });
-                }, 5000);
-            }
-
-            _trackExitIntent() {
-                if (this.signals.device.type !== 'mobile') {
-                    document.addEventListener('mouseout', (e) => {
-                        if (e.clientY < 5 && !this.signals.exitIntentFired) {
-                            this.signals.exitIntentFired = true;
-                            this._emit('exit-intent', {});
-                        }
-                    });
-                }
-            }
-
-            _calculateEngagement() {
-                let score = 0;
-                const s = this.signals;
-                score += Math.min(25, Math.round((Date.now() - this._startTime) / 6000));
-                score += Math.round(s.maxScrollDepth / 5);
-                score += Math.min(15, s.clickCount * 3);
-                score += Math.min(15, s.sectionsViewed.size * 3);
-                if (s.formInteractions > 0) score += 10;
-                if (s.isReturning) score += 10;
-                if (s.phoneClickAttempts > 0) score += 5;
-                return Math.min(100, score);
-            }
-        }
-
-        class Brain {
-            constructor(config = {}) { this.config = config; this.cache = new Map(); }
-
-            async decide(signals) {
-                const key = `${signals.device?.type}|${signals.isAfterHours}|${signals.isReturning}|${Math.round(signals.engagementScore/20)*20}|${signals.maxScrollDepth > 60}|${signals.phoneClickAttempts}`;
-                if (this.cache.has(key)) return this.cache.get(key);
-                const decision = this._evaluate(signals);
-                this.cache.set(key, decision);
-                return decision;
-            }
-
-            _evaluate(s) {
-                if (s.phoneClickAttempts >= 2 && s.isAfterHours) {
-                    return { intent: 'emergency', urgency: 10, actions: [
-                        { type: 'show-modal', data: { template: 'emergency-callback' } },
-                    ], message: "Cannot reach us by telephone? Leave your number — we shall call at first light." };
-                }
-                if (s.engagementScore > 70 && s.maxScrollDepth > 60 && s.urgencySignals.includes('pricing-interest')) {
-                    return { intent: 'ready-to-book', urgency: 8, actions: [
-                        { type: 'swap-cta', target: '[data-living-cta]', data: { text: 'Begin a Consultation', style: 'urgent' } },
-                        { type: 'highlight-section', target: '#booking' },
-                    ], message: null };
-                }
-                if (s.isReturning && s.visitCount >= 3) {
-                    return { intent: 'returning-client', urgency: 6, actions: [
-                        { type: 'swap-cta', target: '[data-living-cta]', data: { text: 'Welcome Back — Inquire', style: 'warm' } },
-                    ], message: "Welcome back. When you are ready, we are here." };
-                }
-                if (s.isAfterHours && s.engagementScore > 30) {
-                    return { intent: 'considering', urgency: 5, actions: [],
-                        message: "We are presently closed. Inquiries by form will be answered first thing." };
-                }
-                if (s.exitIntentFired && s.engagementScore > 40 && s.formInteractions === 0) {
-                    return { intent: 'considering', urgency: 7, actions: [
-                        { type: 'show-modal', data: { template: 'exit-offer' } },
-                    ], message: "Before you depart — may we extend a complimentary consultation?" };
-                }
-                if (s.idleTime > 30 && s.engagementScore > 20 && s.engagementScore < 60) {
-                    return { intent: 'browsing', urgency: 3, actions: [],
-                        message: "Considering your options? We invite you to begin a conversation." };
-                }
-                return { intent: 'browsing', urgency: 1, actions: [], message: null };
-            }
-        }
-
-        class Actor {
-            constructor() { this._originals = new Map(); }
-
-            async execute(decision) {
-                if (!decision || !decision.actions) return;
-                for (const action of decision.actions) {
-                    try { await this._exec(action, decision); } catch(e) {}
-                }
-                if (decision.message) this._showMessage(decision.message, decision.urgency);
-            }
-
-            async _exec(action, decision) {
-                switch(action.type) {
-                    case 'swap-cta': return this._swapCta(action.target, action.data);
-                    case 'show-modal': return this._showModal(action.data, decision);
-                    case 'highlight-section': return this._highlight(action.target);
-                }
-            }
-
-            _swapCta(sel, data) {
-                document.querySelectorAll(sel).forEach(el => {
-                    if (!this._originals.has(el)) this._originals.set(el, { html: el.innerHTML });
-                    if (data.text) {
-                        if (el.classList.contains('btn-primary')) {
-                            el.innerHTML = `<span>${data.text}</span><span>→</span>`;
-                        } else {
-                            el.textContent = data.text;
-                        }
-                    }
-                    if (data.style === 'urgent') el.style.background = 'var(--ochre-deep)';
-                });
-            }
-
-            _highlight(sel) {
-                const el = document.querySelector(sel);
-                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-
-            _showModal(data, decision) {
-                if (document.querySelector('.living-modal')) return;
-                const modal = document.createElement('div');
-                modal.className = 'living-modal';
-                modal.style.cssText = 'display:flex; position:fixed; inset:0; z-index:100000; background:rgba(26,24,21,0.92); backdrop-filter:blur(12px); align-items:center; justify-content:center; opacity:0; transition:opacity 0.5s; padding:1.5rem;';
-
-                const isEmergency = data.template === 'emergency-callback';
-                modal.innerHTML = `
-                    <div style="background:var(--cream); padding:4rem 3rem; max-width:520px; width:100%; position:relative; color:var(--ink);">
-                        <button onclick="this.closest('.living-modal').remove()" style="position:absolute; top:1.5rem; right:1.5rem; background:none; border:none; color:var(--ink-mid); font-size:1.5rem; cursor:pointer; font-family:var(--serif);">×</button>
-                        <p style="font-size:11px; letter-spacing:0.3em; text-transform:uppercase; color:var(--ink-mid); margin-bottom:1.5rem; font-family:var(--sans);">— ${isEmergency ? 'Urgent' : 'A note before you go'}</p>
-                        <h2 style="font-family:var(--serif); font-size:36px; font-weight:300; line-height:1.05; margin-bottom:1.5rem; letter-spacing:-0.01em;">${isEmergency ? 'Need urgent <em style="color:var(--burnt); font-style:italic;">care</em>?' : 'Before you <em style="color:var(--ochre-deep); font-style:italic;">depart</em>...'}</h2>
-                        <p style="font-family:var(--serif); font-style:italic; font-size:18px; color:var(--ink-soft); line-height:1.5; margin-bottom:2.5rem;">${isEmergency ? 'Leave your number and we shall return your call as soon as our practitioner is free.' : 'We extend a complimentary consultation — ninety minutes, no obligation.'}</p>
-                        <form style="display:flex; flex-direction:column; gap:1.5rem;" onsubmit="event.preventDefault(); this.innerHTML='<div style=\\'text-align:center; color:var(--ochre-deep); font-family:var(--serif); font-style:italic; font-size:20px; padding:2rem 0;\\'>✦ Thank you. We shall be in touch.</div>';">
-                            <input type="text" placeholder="Your name" required style="background:transparent; border:none; border-bottom:1px solid var(--ink); padding:0.85rem 0; font-family:var(--serif); font-size:18px; color:var(--ink); font-style:italic;">
-                            <input type="${isEmergency ? 'tel' : 'email'}" placeholder="${isEmergency ? 'Telephone' : 'Email'}" required style="background:transparent; border:none; border-bottom:1px solid var(--ink); padding:0.85rem 0; font-family:var(--serif); font-size:18px; color:var(--ink); font-style:italic;">
-                            <button type="submit" style="background:var(--ink); color:var(--cream); border:none; padding:1.2rem; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; cursor:pointer; margin-top:1rem; font-family:var(--sans);">${isEmergency ? 'Request Callback →' : 'Submit Inquiry →'}</button>
-                        </form>
-                    </div>`;
-
-                document.body.appendChild(modal);
-                modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
-                requestAnimationFrame(() => modal.style.opacity = '1');
-            }
-
-            _showMessage(text, urgency) {
-                if (document.querySelector('.living-msg')) return;
-                const msg = document.createElement('div');
-                msg.className = 'living-msg';
-                const accent = urgency > 7 ? 'var(--burnt)' : 'var(--ochre)';
-                msg.style.cssText = `position:fixed; bottom:2rem; left:50%; transform:translateX(-50%) translateY(150px); z-index:99999; background:var(--ink); border:1px solid ${accent}; padding:1.25rem 2rem; display:flex; align-items:center; gap:1.5rem; max-width:540px; width:90%; color:var(--cream); font-size:15px; font-family:var(--serif); font-style:italic; transition:transform 0.6s cubic-bezier(0.22,1,0.36,1); line-height:1.5;`;
-                msg.innerHTML = `<span style="display:flex; align-items:center; gap:0.75rem;"><span style="color:${accent};">${urgency > 7 ? '✦' : '—'}</span><span>${text}</span></span><button onclick="this.parentNode.remove()" style="background:none; border:none; color:rgba(245,241,234,0.5); font-size:1.4rem; cursor:pointer; flex-shrink:0; font-family:var(--serif);">×</button>`;
-                document.body.appendChild(msg);
-                requestAnimationFrame(() => msg.style.transform = 'translateX(-50%) translateY(0)');
-                setTimeout(() => { msg.style.transform = 'translateX(-50%) translateY(150px)'; setTimeout(() => msg.remove(), 600); }, 9000);
-            }
-        }
-
-        const config = {
-            business: { type:'cosmetic-dental', location:'Sydney CBD', hours:{start:8,end:17} },
-            decisionInterval: 5000,
-        };
-
-        const observer = new Observer(config);
-        const brain = new Brain(config);
-        const actor = new Actor();
-        observer.start();
-
-        ['phone-click','exit-intent','cta-click','pricing-interest'].forEach(event => {
-            observer.on(event, async (data, signals) => {
-                const decision = await brain.decide(signals);
-                await actor.execute(decision);
-                updateBanner(signals, decision);
-            });
-        });
-
-        observer.on('idle', async (data, signals) => {
-            const decision = await brain.decide(signals);
-            await actor.execute(decision);
-            updateBanner(signals, decision);
-        });
-
-        let lastKey = '';
-        setInterval(async () => {
-            const signals = observer.getSignals();
-            const key = `${signals.engagementScore}-${signals.maxScrollDepth}-${signals.clickCount}`;
-            if (key === lastKey) { updateBanner(signals, null); return; }
-            lastKey = key;
-            if (signals.engagementScore < 15) { updateBanner(signals, null); return; }
-            const decision = await brain.decide(signals);
-            if (decision.urgency >= 4 || (decision.actions && decision.actions.length > 0)) {
-                await actor.execute(decision);
-            }
-            updateBanner(signals, decision);
-        }, config.decisionInterval);
-
-        function updateBanner(signals, decision) {
-            const scoreEl = document.getElementById('demo-score');
-            const intentEl = document.getElementById('demo-intent');
-            if (scoreEl) scoreEl.textContent = signals.engagementScore;
-            if (intentEl && decision) intentEl.textContent = decision.intent || 'browsing';
-        }
-
-        // Form submission
-        document.querySelector('[data-living-form="booking"]')?.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const data = Object.fromEntries(new FormData(e.target));
-            e.target.innerHTML = `<div style="grid-column:span 2; text-align:center; padding:4rem 0;">
-                <div style="font-family:var(--serif); font-size:48px; color:var(--ochre); margin-bottom:1.5rem; font-style:italic;">✦</div>
-                <h3 style="font-family:var(--serif); font-size:36px; font-weight:300; color:var(--ink); margin-bottom:1rem; line-height:1.1;">Thank you, <em style="color:var(--ochre-deep); font-style:italic;">${data.name.split(' ')[0]}</em>.</h3>
-                <p style="font-family:var(--serif); font-style:italic; font-size:20px; color:var(--ink-soft); max-width:480px; margin:0 auto; line-height:1.5;">Your inquiry has been received. We shall be in touch within two hours.</p>
-            </div>`;
-        });
-
-        // Nav scroll
-        const nav = document.getElementById('mainNav');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) nav.classList.add('scrolled');
-            else nav.classList.remove('scrolled');
-        }, { passive: true });
-
-        // Reveal animations
-        new IntersectionObserver((entries) => {
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
             });
-        }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' })
-            .observe(document.querySelector('.reveal'));
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-        document.querySelectorAll('.reveal').forEach(el => {
-            new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) entry.target.classList.add('visible');
-                });
-            }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' }).observe(el);
-        });
-
-        console.log('%c✦ Living.js v0.1.0 %c— Editorial mode', 'background:#B88A4D; color:#FAF7F1; padding:4px 8px;', 'color:#B88A4D;');
-    })();
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
 
 </body>
