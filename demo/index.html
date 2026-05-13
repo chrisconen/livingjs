@@ -3,573 +3,881 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Living.js Demo — Luminous Dental Studio | Cosmetic Dentistry Sydney</title>
-    <meta name="description" content="Live demo of Living.js — watch an autonomous AI agent transform a cosmetic dental website in real-time. Open DevTools to see decisions.">
+    <title>Luminous — Cosmetic Dentistry, Reimagined | Sydney</title>
+    <meta name="description" content="Sydney's most considered cosmetic dental practice. Veneers, implants, and smile makeovers crafted with surgical precision and the eye of a sculptor.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg: #0a0a0a;
-            --surface: #141414;
-            --border: #222;
-            --text: #f0f0f0;
-            --text-dim: #888;
-            --accent: #C9A962;
-            --accent-glow: rgba(201, 169, 98, 0.15);
-            --white: #ffffff;
-            --serif: 'Playfair Display', Georgia, serif;
+            --paper: #F5F1EA;
+            --paper-warm: #EEE6D8;
+            --ink: #1A1815;
+            --ink-soft: #3A352D;
+            --ink-mid: #6B6258;
+            --ink-light: #9A9082;
+            --ochre: #B88A4D;
+            --ochre-deep: #8B6534;
+            --cream: #FAF7F1;
+            --burnt: #8C3A1F;
+            --rule: rgba(26, 24, 21, 0.12);
+
+            --serif: 'Cormorant Garamond', 'Adobe Garamond Pro', Georgia, serif;
             --sans: 'Inter', -apple-system, sans-serif;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
+        html { scroll-behavior: smooth; }
         body {
-            background: var(--bg);
-            color: var(--text);
+            background: var(--paper);
+            color: var(--ink);
             font-family: var(--sans);
-            line-height: 1.7;
+            font-weight: 300;
+            font-size: 15px;
+            line-height: 1.65;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
         }
-
+        ::selection { background: var(--ochre); color: var(--cream); }
         a { color: inherit; text-decoration: none; }
+        img { display: block; max-width: 100%; }
 
-        /* ─── Demo Banner ─── */
+        /* Living.js Demo Banner */
         .demo-banner {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 10000;
-            background: #111;
-            border-bottom: 1px solid var(--accent);
-            padding: 0.5rem 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-family: 'JetBrains Mono', 'SF Mono', monospace;
-            font-size: 11px;
-        }
-
-        .demo-banner-left {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .demo-banner .bolt { color: var(--accent); font-weight: 700; }
-
-        .demo-banner-label {
-            color: var(--text-dim);
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-        }
-
-        .demo-banner-score {
-            color: var(--accent);
-            font-weight: 600;
-        }
-
-        .demo-banner-intent {
-            padding: 0.15rem 0.5rem;
-            background: rgba(201,169,98,0.1);
-            border: 1px solid rgba(201,169,98,0.2);
-            border-radius: 4px;
-            color: var(--accent);
-        }
-
-        .demo-banner a {
-            color: var(--accent);
-            text-decoration: none;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            transition: opacity 0.2s;
-        }
-
-        .demo-banner a:hover { opacity: 0.7; }
-
-        /* ─── Navigation ─── */
-        nav {
-            position: fixed; top: 32px; left: 0; right: 0; z-index: 1000;
-            padding: 1.5rem 3rem;
+            position: fixed; top: 0; left: 0; right: 0; z-index: 10000;
+            background: var(--ink); color: var(--cream);
+            padding: 0.6rem 1.5rem;
             display: flex; justify-content: space-between; align-items: center;
-            background: rgba(10,10,10,0.9);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
+            font-family: var(--sans); font-size: 11px; letter-spacing: 0.04em;
         }
-
-        .nav-logo {
-            font-family: var(--serif);
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: var(--accent);
-            letter-spacing: 0.02em;
+        .demo-banner-left { display: flex; align-items: center; gap: 1.25rem; }
+        .demo-banner .bolt { color: var(--ochre); }
+        .demo-banner-label { color: rgba(245,241,234,0.4); text-transform: uppercase; letter-spacing: 0.12em; font-size: 10px; }
+        .demo-banner-score { color: var(--ochre); font-feature-settings: 'tnum'; }
+        .demo-banner-intent {
+            padding: 0.2rem 0.6rem;
+            background: rgba(184,138,77,0.1);
+            border: 1px solid rgba(184,138,77,0.2);
+            color: var(--ochre);
+            text-transform: uppercase; letter-spacing: 0.1em; font-size: 10px;
         }
+        .demo-banner a { color: var(--ochre); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; transition: opacity 0.3s; }
+        .demo-banner a:hover { opacity: 0.6; }
 
-        .nav-links { display: flex; gap: 2rem; list-style: none; }
-        .nav-links a {
-            font-size: 0.85rem;
-            color: var(--text-dim);
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            transition: color 0.3s;
+        /* Navigation */
+        nav {
+            position: fixed; top: 36px; left: 0; right: 0; z-index: 1000;
+            padding: 2rem 3rem;
+            display: flex; justify-content: space-between; align-items: center;
+            transition: background 0.4s, padding 0.4s, border-color 0.4s;
+            border-bottom: 1px solid transparent;
         }
-        .nav-links a:hover { color: var(--accent); }
-
+        nav.scrolled {
+            background: rgba(245,241,234,0.92);
+            backdrop-filter: blur(20px) saturate(1.2);
+            padding: 1.25rem 3rem;
+            border-bottom-color: var(--rule);
+        }
+        .nav-logo { font-family: var(--serif); font-size: 22px; font-weight: 500; letter-spacing: 0.04em; }
+        .nav-logo-mark { font-style: italic; color: var(--ochre); }
+        .nav-center { display: flex; gap: 2.5rem; list-style: none; }
+        .nav-center a { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft); transition: color 0.3s; }
+        .nav-center a:hover { color: var(--ochre); }
+        .nav-right { display: flex; align-items: center; gap: 1.5rem; }
+        .nav-phone { font-family: var(--serif); font-size: 16px; font-style: italic; }
         .nav-cta {
-            font-size: 0.8rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            padding: 0.8rem 1.5rem;
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            transition: all 0.3s;
+            font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+            padding: 0.85rem 1.5rem; background: var(--ink); color: var(--cream);
+            transition: background 0.3s;
         }
-        .nav-cta:hover { background: var(--accent); color: var(--bg); }
+        .nav-cta:hover { background: var(--ochre-deep); }
 
-        /* ─── Hero ─── */
+        /* Hero */
         .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 10rem 3rem 4rem;
-            position: relative;
-            overflow: hidden;
+            min-height: 100vh; padding: 9rem 0 0;
+            display: grid; grid-template-columns: 1fr 1fr; align-items: end;
+            position: relative; overflow: hidden;
         }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at 70% 50%, var(--accent-glow) 0%, transparent 60%);
-            pointer-events: none;
+        .hero-text { padding: 0 3rem 5rem 5rem; position: relative; z-index: 2; }
+        .hero-eyebrow {
+            font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+            color: var(--ink-mid); margin-bottom: 2.5rem;
+            display: flex; align-items: center; gap: 1rem;
         }
-
-        .hero-content { max-width: 700px; position: relative; z-index: 1; }
-
-        .hero-label {
-            font-size: 0.75rem;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 1.5rem;
-        }
-
+        .hero-eyebrow::before { content: ''; display: block; width: 40px; height: 1px; background: var(--ochre); }
         .hero-title {
             font-family: var(--serif);
-            font-size: clamp(2.5rem, 5.5vw, 4.5rem);
-            font-weight: 600;
-            line-height: 1.15;
-            margin-bottom: 1.5rem;
-        }
-
-        .hero-title em { font-style: italic; color: var(--accent); }
-
-        .hero-subtitle {
-            font-size: 1.1rem;
-            color: var(--text-dim);
-            max-width: 500px;
+            font-size: clamp(3.5rem, 7vw, 7rem);
+            font-weight: 300; line-height: 0.95; letter-spacing: -0.02em;
             margin-bottom: 2.5rem;
         }
+        .hero-title em { font-style: italic; font-weight: 400; color: var(--ochre-deep); }
+        .hero-lede {
+            font-family: var(--serif); font-size: 22px; font-weight: 300; font-style: italic;
+            color: var(--ink-soft); max-width: 460px; line-height: 1.45;
+            margin-bottom: 3.5rem;
+        }
+        .hero-cta-row { display: flex; align-items: center; gap: 2.5rem; }
 
-        .hero-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 1.1rem 2.2rem;
-            background: var(--accent);
-            color: var(--bg);
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            transition: all 0.3s;
+        .btn-primary {
+            display: inline-flex; align-items: center; gap: 1rem;
+            padding: 1.15rem 2.2rem;
+            background: var(--ink); color: var(--cream);
+            font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+            transition: all 0.4s; position: relative; overflow: hidden;
+        }
+        .btn-primary::after {
+            content: ''; position: absolute; inset: 0;
+            background: var(--ochre-deep); transform: translateX(-101%);
+            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1); z-index: -1;
+        }
+        .btn-primary:hover::after { transform: translateX(0); }
+        .btn-primary span { position: relative; z-index: 1; }
+
+        .btn-link {
+            font-family: var(--serif); font-size: 18px; font-style: italic;
+            color: var(--ink); border-bottom: 1px solid var(--ink); padding-bottom: 4px;
+            transition: color 0.3s, border-color 0.3s;
+        }
+        .btn-link:hover { color: var(--ochre-deep); border-color: var(--ochre-deep); }
+
+        .hero-image { height: 100vh; position: relative; overflow: hidden; }
+        .hero-image img {
+            width: 100%; height: 100%; object-fit: cover;
+            filter: brightness(0.95) saturate(0.9); transform: scale(1.02);
+            transition: transform 8s ease-out;
+        }
+        .hero:hover .hero-image img { transform: scale(1.08); }
+        .hero-image-caption {
+            position: absolute; bottom: 2rem; right: 2rem;
+            font-family: var(--serif); font-style: italic; color: var(--cream);
+            font-size: 13px; letter-spacing: 0.05em;
+            writing-mode: vertical-rl; transform: rotate(180deg);
         }
 
-        .hero-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(201, 169, 98, 0.3);
+        /* Marquee */
+        .marquee {
+            border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+            padding: 1.5rem 0; overflow: hidden; background: var(--paper-warm);
+        }
+        .marquee-track {
+            display: flex; gap: 4rem; white-space: nowrap;
+            animation: marquee 35s linear infinite;
+            font-family: var(--serif); font-style: italic; font-size: 18px;
+            color: var(--ink-soft);
+        }
+        .marquee-track span { display: flex; align-items: center; gap: 4rem; }
+        .marquee-track span::after { content: '✦'; color: var(--ochre); font-size: 12px; }
+        @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+        /* Philosophy */
+        .philosophy {
+            padding: 9rem 5rem; max-width: 1400px; margin: 0 auto;
+            display: grid; grid-template-columns: 1fr 2fr; gap: 5rem;
+        }
+        .philosophy-label {
+            font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+            color: var(--ink-mid); position: sticky; top: 12rem; align-self: start;
+        }
+        .philosophy-text {
+            font-family: var(--serif); font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+            line-height: 1.35; font-weight: 300; max-width: 800px;
+        }
+        .philosophy-text em { font-style: italic; color: var(--ochre-deep); }
+        .philosophy-text .pull {
+            display: inline-block; margin-top: 1.5rem;
+            font-style: italic; font-size: 18px; font-family: var(--sans);
+            color: var(--ink-mid); letter-spacing: 0.02em;
         }
 
-        /* ─── Trust Bar ─── */
-        .trust {
-            display: flex;
-            justify-content: center;
-            gap: 4rem;
-            padding: 3rem;
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
+        /* Treatments */
+        .treatments-intro {
+            padding: 5rem 5rem 3rem; max-width: 1400px; margin: 0 auto;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: end;
+        }
+        .treatments-intro h2 {
+            font-family: var(--serif); font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 300; line-height: 1; letter-spacing: -0.02em;
+        }
+        .treatments-intro h2 em { font-style: italic; color: var(--ochre-deep); }
+        .treatments-intro p {
+            font-family: var(--serif); font-size: 19px; font-style: italic;
+            color: var(--ink-mid); line-height: 1.5; max-width: 460px;
         }
 
-        .trust-item { text-align: center; }
-        .trust-number { font-family: var(--serif); font-size: 2rem; font-weight: 600; color: var(--accent); }
-        .trust-label { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); margin-top: 0.25rem; }
+        .treatments { padding: 4rem 5rem 9rem; max-width: 1400px; margin: 0 auto; }
+        .treatment {
+            display: grid; grid-template-columns: 60px 1fr 1.2fr 1fr;
+            gap: 3rem; padding: 3rem 0;
+            border-top: 1px solid var(--rule);
+            align-items: start; transition: padding 0.4s ease;
+        }
+        .treatment:last-child { border-bottom: 1px solid var(--rule); }
+        .treatment:hover { padding: 3.5rem 0; }
+        .treatment-num {
+            font-family: var(--serif); font-size: 14px; font-style: italic;
+            color: var(--ink-mid); padding-top: 0.5rem;
+        }
+        .treatment-name h3 {
+            font-family: var(--serif); font-size: 36px; font-weight: 400;
+            line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 0.75rem;
+        }
+        .treatment-name h3 em { font-style: italic; color: var(--ochre-deep); }
+        .treatment-name .duration {
+            font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+            color: var(--ink-mid);
+        }
+        .treatment-desc { font-size: 15px; color: var(--ink-soft); line-height: 1.7; }
+        .treatment-meta {
+            text-align: right; display: flex; flex-direction: column;
+            align-items: flex-end; gap: 1.25rem;
+        }
+        .treatment-price {
+            font-family: var(--serif); font-size: 26px; font-style: italic;
+        }
+        .treatment-price span {
+            font-size: 12px; font-style: normal; color: var(--ink-mid);
+            letter-spacing: 0.1em; text-transform: uppercase;
+            font-family: var(--sans); display: block; margin-bottom: 4px;
+        }
+        .treatment-cta {
+            font-family: var(--serif); font-size: 16px; font-style: italic;
+            border-bottom: 1px solid var(--ink); padding-bottom: 2px;
+            transition: color 0.3s, border-color 0.3s;
+        }
+        .treatment-cta:hover { color: var(--ochre-deep); border-color: var(--ochre-deep); }
 
-        /* ─── Services ─── */
-        section { padding: 6rem 3rem; }
+        /* Gallery */
+        .gallery { background: var(--paper-warm); padding: 9rem 0; }
+        .gallery-header {
+            padding: 0 5rem 4rem; max-width: 1400px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: end;
+        }
+        .gallery-header h2 {
+            font-family: var(--serif); font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 300; line-height: 0.95; letter-spacing: -0.02em;
+        }
+        .gallery-header h2 em { font-style: italic; color: var(--ochre-deep); }
+        .gallery-eyebrow {
+            font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+            color: var(--ink-mid); margin-bottom: 1.5rem;
+        }
+        .gallery-grid {
+            display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.5rem;
+            padding: 0 5rem; max-width: 1400px; margin: 0 auto;
+        }
+        .gallery-item { position: relative; overflow: hidden; cursor: pointer; background: var(--ink); }
+        .gallery-item:nth-child(1) { grid-column: span 7; aspect-ratio: 4/3; }
+        .gallery-item:nth-child(2) { grid-column: span 5; aspect-ratio: 4/5; }
+        .gallery-item:nth-child(3) { grid-column: span 4; aspect-ratio: 3/4; }
+        .gallery-item:nth-child(4) { grid-column: span 8; aspect-ratio: 16/9; }
+        .gallery-item:nth-child(5) { grid-column: span 6; aspect-ratio: 4/3; }
+        .gallery-item:nth-child(6) { grid-column: span 6; aspect-ratio: 4/3; }
+        .gallery-item img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+            filter: brightness(0.92) saturate(0.85);
+        }
+        .gallery-item:hover img { transform: scale(1.05); filter: brightness(1) saturate(1); }
+        .gallery-item-caption {
+            position: absolute; bottom: 1.5rem; left: 1.5rem;
+            color: var(--cream); font-family: var(--serif); font-style: italic;
+            font-size: 16px; opacity: 0; transform: translateY(10px);
+            transition: opacity 0.4s, transform 0.4s;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+        }
+        .gallery-item:hover .gallery-item-caption { opacity: 1; transform: translateY(0); }
 
-        .section-label {
-            font-size: 0.7rem;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 1rem;
+        /* Testimonials */
+        .testimonials { padding: 9rem 5rem; max-width: 1200px; margin: 0 auto; }
+        .testimonials-label {
+            font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+            color: var(--ink-mid); text-align: center; margin-bottom: 5rem;
+            display: flex; align-items: center; justify-content: center; gap: 1.5rem;
+        }
+        .testimonials-label::before,
+        .testimonials-label::after {
+            content: ''; display: block; width: 40px; height: 1px; background: var(--ochre);
+        }
+        .testimonial-feature {
+            text-align: center; margin-bottom: 6rem; max-width: 900px;
+            margin-left: auto; margin-right: auto;
+        }
+        .testimonial-feature-quote {
+            font-family: var(--serif); font-size: clamp(1.75rem, 3.5vw, 2.8rem);
+            font-weight: 300; line-height: 1.3; letter-spacing: -0.01em;
+            margin-bottom: 2.5rem; font-style: italic;
+        }
+        .testimonial-feature-quote::before { content: '"'; color: var(--ochre); }
+        .testimonial-feature-quote::after { content: '"'; color: var(--ochre); }
+        .testimonial-attribution {
+            display: flex; justify-content: center; align-items: center; gap: 1.5rem;
+            font-size: 13px; letter-spacing: 0.06em; color: var(--ink-mid);
+        }
+        .testimonial-attribution-name {
+            font-family: var(--serif); font-style: italic; font-size: 18px; color: var(--ink);
+        }
+        .testimonial-attribution-divider { width: 30px; height: 1px; background: var(--rule); }
+
+        .testimonials-secondary {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 4rem;
+            margin-top: 6rem; padding-top: 6rem; border-top: 1px solid var(--rule);
+        }
+        .testimonial-card p {
+            font-family: var(--serif); font-style: italic; font-size: 18px;
+            line-height: 1.5; color: var(--ink-soft); margin-bottom: 1.5rem;
+        }
+        .testimonial-card-author { font-size: 13px; letter-spacing: 0.06em; color: var(--ink-mid); }
+        .testimonial-card-author strong {
+            display: block; font-family: var(--serif); font-style: italic; font-weight: 400;
+            font-size: 16px; color: var(--ink); margin-bottom: 4px; letter-spacing: 0;
         }
 
-        .section-title {
-            font-family: var(--serif);
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 500;
-            margin-bottom: 3rem;
-            max-width: 600px;
+        /* Practice */
+        .practice { background: var(--cream); padding: 9rem 0; }
+        .practice-grid {
+            max-width: 1400px; margin: 0 auto;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+            align-items: center; padding: 0 5rem;
+        }
+        .practice-image { aspect-ratio: 4/5; overflow: hidden; }
+        .practice-image img {
+            width: 100%; height: 100%; object-fit: cover;
+            filter: brightness(0.95) saturate(0.85);
+        }
+        .practice-content h2 {
+            font-family: var(--serif); font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 300; line-height: 1; letter-spacing: -0.02em; margin-bottom: 2rem;
+        }
+        .practice-content h2 em { font-style: italic; color: var(--ochre-deep); }
+        .practice-content p {
+            font-family: var(--serif); font-size: 19px; font-style: italic;
+            color: var(--ink-soft); line-height: 1.55; margin-bottom: 2rem;
+        }
+        .practice-stats {
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;
+            margin-top: 3rem; padding-top: 3rem; border-top: 1px solid var(--rule);
+        }
+        .practice-stat-num {
+            font-family: var(--serif); font-size: 48px; font-weight: 300;
+            line-height: 1; font-style: italic; margin-bottom: 0.5rem;
+        }
+        .practice-stat-label {
+            font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+            color: var(--ink-mid);
         }
 
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            max-width: 1200px;
+        /* Booking */
+        .booking { padding: 9rem 5rem; max-width: 900px; margin: 0 auto; text-align: center; }
+        .booking-eyebrow {
+            font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+            color: var(--ink-mid); margin-bottom: 2rem;
+            display: flex; align-items: center; justify-content: center; gap: 1.5rem;
         }
-
-        .service-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 2rem;
-            transition: all 0.3s;
+        .booking-eyebrow::before,
+        .booking-eyebrow::after {
+            content: ''; display: block; width: 40px; height: 1px; background: var(--ochre);
         }
-
-        .service-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-4px);
+        .booking h2 {
+            font-family: var(--serif); font-size: clamp(3rem, 6vw, 5.5rem);
+            font-weight: 300; line-height: 0.95; letter-spacing: -0.02em; margin-bottom: 1.5rem;
         }
-
-        .service-icon { font-size: 2rem; margin-bottom: 1rem; }
-        .service-name { font-family: var(--serif); font-size: 1.2rem; margin-bottom: 0.5rem; }
-        .service-desc { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 1rem; }
-        .service-price { font-size: 0.8rem; color: var(--accent); font-weight: 500; }
-
-        /* ─── Testimonials ─── */
-        .testimonials { background: var(--surface); }
-
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
+        .booking h2 em { font-style: italic; color: var(--ochre-deep); }
+        .booking-lede {
+            font-family: var(--serif); font-size: 22px; font-style: italic;
+            color: var(--ink-mid); margin-bottom: 4rem; max-width: 580px;
+            margin-left: auto; margin-right: auto; line-height: 1.5;
         }
-
-        .testimonial { padding: 2rem; border: 1px solid var(--border); border-radius: 12px; }
-        .testimonial-stars { color: var(--accent); margin-bottom: 1rem; font-size: 0.9rem; }
-        .testimonial-text { font-size: 0.95rem; color: var(--text-dim); margin-bottom: 1rem; font-style: italic; }
-        .testimonial-author { font-weight: 500; font-size: 0.85rem; }
-        .testimonial-role { font-size: 0.75rem; color: var(--text-dim); }
-
-        /* ─── Booking ─── */
-        #booking { background: var(--bg); text-align: center; }
-
         .booking-form {
-            max-width: 500px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
+            text-align: left; display: grid;
+            grid-template-columns: 1fr 1fr; gap: 2.5rem 2rem;
         }
-
-        .booking-form input,
-        .booking-form select,
-        .booking-form textarea {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            color: var(--text);
-            padding: 1rem 1.2rem;
-            border-radius: 8px;
-            font-family: var(--sans);
-            font-size: 0.95rem;
-            transition: border-color 0.2s;
+        .field { display: flex; flex-direction: column; position: relative; }
+        .field.full { grid-column: span 2; }
+        .field label {
+            font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+            color: var(--ink-mid); margin-bottom: 0.75rem;
         }
-
-        .booking-form input:focus,
-        .booking-form select:focus,
-        .booking-form textarea:focus { outline: none; border-color: var(--accent); }
-
-        .booking-form select { cursor: pointer; }
-        .booking-form select option { background: var(--surface); }
+        .field input,
+        .field select,
+        .field textarea {
+            background: transparent; border: none; border-bottom: 1px solid var(--ink);
+            padding: 0.85rem 0; font-family: var(--serif); font-size: 19px;
+            color: var(--ink); font-weight: 400; transition: border-color 0.3s; font-style: italic;
+        }
+        .field input:focus, .field select:focus, .field textarea:focus {
+            outline: none; border-bottom-color: var(--ochre);
+        }
+        .field input::placeholder, .field textarea::placeholder { color: var(--ink-light); }
+        .field select {
+            cursor: pointer; appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%231A1815' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 0 center;
+            padding-right: 1.5rem;
+        }
+        .field textarea { resize: vertical; min-height: 80px; }
 
         .booking-submit {
-            background: var(--accent);
-            color: var(--bg);
-            border: none;
-            padding: 1.1rem;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            font-family: var(--sans);
-            cursor: pointer;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            transition: all 0.3s;
+            grid-column: span 2; margin-top: 2rem;
+            background: var(--ink); color: var(--cream); border: none;
+            padding: 1.4rem 2.5rem; font-size: 11px; letter-spacing: 0.18em;
+            text-transform: uppercase; cursor: pointer; transition: background 0.4s;
         }
+        .booking-submit:hover { background: var(--ochre-deep); }
 
-        .booking-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 24px rgba(201, 169, 98, 0.3);
+        /* Footer */
+        footer { background: var(--ink); color: var(--paper); padding: 6rem 5rem 3rem; }
+        .footer-grid {
+            max-width: 1400px; margin: 0 auto;
+            display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem;
+            padding-bottom: 4rem; border-bottom: 1px solid rgba(245,241,234,0.1);
         }
-
-        /* ─── Footer ─── */
-        footer {
-            padding: 3rem;
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.8rem;
-            color: var(--text-dim);
+        .footer-brand h3 {
+            font-family: var(--serif); font-size: 36px; font-weight: 400;
+            margin-bottom: 1.5rem; letter-spacing: 0.02em;
         }
-
-        .footer-badge {
-            font-size: 0.7rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--accent);
-            opacity: 0.6;
+        .footer-brand h3 em { font-style: italic; color: var(--ochre); }
+        .footer-brand p {
+            font-family: var(--serif); font-style: italic; font-size: 18px;
+            color: rgba(245,241,234,0.65); max-width: 400px; line-height: 1.5;
         }
+        .footer-col h4 {
+            font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+            color: rgba(245,241,234,0.5); margin-bottom: 1.5rem;
+        }
+        .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+        .footer-col li {
+            font-family: var(--serif); font-size: 17px; font-style: italic;
+            color: rgba(245,241,234,0.85); transition: color 0.3s; cursor: pointer;
+        }
+        .footer-col li:hover { color: var(--ochre); }
+        .footer-bottom {
+            max-width: 1400px; margin: 3rem auto 0;
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 12px; color: rgba(245,241,234,0.5);
+        }
+        .footer-bottom a { color: var(--ochre); font-style: italic; font-family: var(--serif); font-size: 14px; }
 
-        /* ─── Hidden Living.js elements ─── */
+        /* Living.js hidden elements */
         [data-living-after-hours],
         [data-living-emergency],
         [data-living-nudge],
         [data-living-value-prop] { display: none; }
 
-        /* ─── Responsive ─── */
-        @media (max-width: 768px) {
-            nav { padding: 1rem 1.5rem; }
-            .nav-links { display: none; }
-            .hero { padding: 8rem 1.5rem 3rem; }
-            section { padding: 4rem 1.5rem; }
-            .trust { gap: 2rem; flex-wrap: wrap; }
-            footer { flex-direction: column; gap: 1rem; text-align: center; }
-            .demo-banner { flex-direction: column; gap: 0.5rem; text-align: center; }
+        /* Reveal */
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 1s ease, transform 1s cubic-bezier(0.22, 1, 0.36, 1); }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            nav { padding: 1.25rem 1.5rem; }
+            .nav-center, .nav-phone { display: none; }
+            .hero { grid-template-columns: 1fr; padding-top: 7rem; }
+            .hero-text { padding: 0 1.5rem 3rem; }
+            .hero-image { height: 60vh; }
+            .philosophy { padding: 5rem 1.5rem; grid-template-columns: 1fr; gap: 2rem; }
+            .philosophy-label { position: static; }
+            .treatments-intro { padding: 4rem 1.5rem 2rem; grid-template-columns: 1fr; gap: 2rem; }
+            .treatments { padding: 2rem 1.5rem 5rem; }
+            .treatment { grid-template-columns: 30px 1fr; gap: 1.5rem; padding: 2rem 0; }
+            .treatment-desc, .treatment-meta { grid-column: 2; }
+            .treatment-meta { text-align: left; align-items: flex-start; margin-top: 1rem; }
+            .gallery { padding: 5rem 0; }
+            .gallery-header { padding: 0 1.5rem 3rem; flex-direction: column; align-items: flex-start; gap: 1rem; }
+            .gallery-grid { padding: 0 1.5rem; gap: 0.75rem; }
+            .gallery-item { grid-column: span 12 !important; aspect-ratio: 4/3 !important; }
+            .testimonials { padding: 5rem 1.5rem; }
+            .testimonials-secondary { grid-template-columns: 1fr; gap: 2.5rem; }
+            .practice { padding: 5rem 0; }
+            .practice-grid { grid-template-columns: 1fr; padding: 0 1.5rem; gap: 2.5rem; }
+            .booking { padding: 5rem 1.5rem; }
+            .booking-form { grid-template-columns: 1fr; gap: 2rem; }
+            .field.full, .booking-submit { grid-column: span 1; }
+            footer { padding: 4rem 1.5rem 2rem; }
+            .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+            .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+            .demo-banner { font-size: 10px; flex-wrap: wrap; gap: 0.5rem; }
+            .demo-banner-left { flex-wrap: wrap; gap: 0.75rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ═══ LIVING.JS DEMO BANNER ═══ -->
+    <!-- Living.js Demo Banner -->
     <div class="demo-banner">
         <div class="demo-banner-left">
-            <span><span class="bolt">⚡</span> Living.js Demo</span>
-            <span class="demo-banner-label">Engagement:</span>
+            <span><span class="bolt">✦</span> Living.js · live demo</span>
+            <span class="demo-banner-label">engagement</span>
             <span class="demo-banner-score" id="demo-score">0</span>
             <span class="demo-banner-intent" id="demo-intent">browsing</span>
         </div>
-        <a href="https://livingjs.australianweb.agency" target="_blank">← Back to Living.js</a>
+        <a href="https://livingjs.australianweb.agency">← back to Living.js</a>
     </div>
 
     <!-- Navigation -->
-    <nav>
-        <a href="#" class="nav-logo">Luminous Dental</a>
-        <ul class="nav-links">
-            <li><a href="#services">Services</a></li>
-            <li><a href="#testimonials">Reviews</a></li>
-            <li><a href="#booking">Book Now</a></li>
+    <nav id="mainNav">
+        <a href="#" class="nav-logo">Luminous<span class="nav-logo-mark">.</span></a>
+        <ul class="nav-center">
+            <li><a href="#treatments">Treatments</a></li>
+            <li><a href="#lookbook">Lookbook</a></li>
+            <li><a href="#practice">The Practice</a></li>
+            <li><a href="#booking">Inquire</a></li>
         </ul>
-        <a href="#booking" class="nav-cta" data-living-cta>Free Consultation</a>
+        <div class="nav-right">
+            <span class="nav-phone">+61 2 8000 1234</span>
+            <a href="#booking" class="nav-cta" data-living-cta>Inquire</a>
+        </div>
     </nav>
 
     <!-- Hero -->
-    <section class="hero" id="hero">
-        <div class="hero-content">
-            <p class="hero-label">Premium Cosmetic Dentistry • Sydney CBD</p>
-            <h1 class="hero-title">The smile you've been <em>thinking about</em></h1>
-            <p class="hero-subtitle">World-class veneers, implants, and smile makeovers. Crafted with precision. Delivered with care. Finance options available.</p>
-            <a href="#booking" class="hero-cta" data-living-cta>
-                <span>Book Free Consultation</span>
-                <span>→</span>
-            </a>
+    <section class="hero">
+        <div class="hero-text">
+            <p class="hero-eyebrow">Established Sydney · Since 2009</p>
+            <h1 class="hero-title">A smile,<br>considered &amp;<br><em>composed</em>.</h1>
+            <p class="hero-lede">Cosmetic dentistry at the intersection of surgical precision and artistic intention. For those who understand that the difference is in the millimetre.</p>
+            <div class="hero-cta-row">
+                <a href="#booking" class="btn-primary" data-living-cta>
+                    <span>Begin a Consultation</span>
+                    <span>→</span>
+                </a>
+                <a href="#treatments" class="btn-link">View treatments</a>
+            </div>
         </div>
-
-        <div data-living-after-hours style="position:absolute; bottom:2rem; left:3rem; right:3rem; background:var(--surface); border:1px solid var(--accent); border-radius:12px; padding:1.5rem 2rem; max-width:500px;">
-            <p style="color:var(--accent); font-weight:600; margin-bottom:0.5rem;">We're currently closed</p>
-            <p style="color:var(--text-dim); font-size:0.9rem;">But you can book online 24/7. Choose your preferred time and we'll confirm first thing in the morning.</p>
-        </div>
-
-        <div data-living-emergency style="position:absolute; top:8rem; right:3rem; background:#1a0000; border:1px solid #ff4444; border-radius:12px; padding:1.5rem 2rem; max-width:400px;">
-            <p style="color:#ff4444; font-weight:600; margin-bottom:0.5rem;">🚨 Dental Emergency?</p>
-            <p style="color:var(--text-dim); font-size:0.9rem;">Call our emergency line or leave your number below for an immediate callback.</p>
-            <a href="tel:+61280001234" style="display:inline-block; margin-top:0.75rem; padding:0.6rem 1.2rem; background:#ff4444; color:#fff; border-radius:6px; font-size:0.85rem; font-weight:600;">Call Now: (02) 8000 1234</a>
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Premium dental practice interior">
+            <div class="hero-image-caption">Vol. 01 — The Smile Edition</div>
         </div>
     </section>
 
-    <!-- Trust Bar -->
-    <div class="trust" data-living-section="trust">
-        <div class="trust-item"><div class="trust-number">15+</div><div class="trust-label">Years Experience</div></div>
-        <div class="trust-item"><div class="trust-number">5,000+</div><div class="trust-label">Smiles Transformed</div></div>
-        <div class="trust-item"><div class="trust-number">4.9</div><div class="trust-label">Google Rating</div></div>
-        <div class="trust-item"><div class="trust-number">0%</div><div class="trust-label">Interest Finance</div></div>
+    <!-- Marquee -->
+    <div class="marquee">
+        <div class="marquee-track">
+            <span>Porcelain Veneers</span>
+            <span>Surgical Implants</span>
+            <span>Complete Smile Design</span>
+            <span>In-Chair Whitening</span>
+            <span>Invisalign Clear Aligners</span>
+            <span>Restorative Crowns</span>
+            <span>Porcelain Veneers</span>
+            <span>Surgical Implants</span>
+            <span>Complete Smile Design</span>
+            <span>In-Chair Whitening</span>
+            <span>Invisalign Clear Aligners</span>
+            <span>Restorative Crowns</span>
+        </div>
     </div>
 
-    <!-- Services -->
-    <section id="services" data-living-section="services">
-        <p class="section-label">Our Treatments</p>
-        <h2 class="section-title">Crafted for confidence</h2>
-        <div class="services-grid">
-            <div class="service-card" data-living-pricing>
-                <div class="service-icon">✨</div>
-                <h3 class="service-name">Porcelain Veneers</h3>
-                <p class="service-desc">Ultra-thin, custom-crafted shells that transform the appearance of your teeth. Natural-looking, stain-resistant, and built to last.</p>
-                <p class="service-price">From $1,200 per tooth</p>
+    <!-- Philosophy -->
+    <section class="philosophy reveal">
+        <div class="philosophy-label">— Philosophy</div>
+        <div class="philosophy-text">
+            We do not believe in standard outcomes. Every face is a study in proportion, every smile a question of geometry and grace. We answer with <em>millimetres</em>, with <em>shade gradations</em>, with the patience of a sculptor and the precision of a surgeon.
+            <span class="pull">The result is not a brighter smile. It is your smile — recovered, refined, restored.</span>
+        </div>
+    </section>
+
+    <!-- Treatments -->
+    <section id="treatments">
+        <div class="treatments-intro reveal">
+            <h2>Curated<br>treatments,<br><em>quietly delivered</em>.</h2>
+            <p>Each procedure is undertaken by a single principal clinician. No assistants on the chair. No production-line dentistry. Time is allocated generously, by design.</p>
+        </div>
+
+        <div class="treatments">
+            <div class="treatment reveal" data-living-pricing>
+                <div class="treatment-num">01</div>
+                <div class="treatment-name">
+                    <h3>Porcelain <em>Veneers</em></h3>
+                    <div class="duration">2–3 visits · 4 weeks</div>
+                </div>
+                <p class="treatment-desc">Ultra-thin, hand-layered porcelain shells, individually crafted by our master ceramist in Melbourne. Designed to refract light as natural enamel does. Twenty-year median lifespan.</p>
+                <div class="treatment-meta">
+                    <div class="treatment-price"><span>From</span>$1,200 per unit</div>
+                    <a href="#booking" class="treatment-cta">Inquire</a>
+                </div>
             </div>
-            <div class="service-card" data-living-pricing>
-                <div class="service-icon">🦷</div>
-                <h3 class="service-name">Dental Implants</h3>
-                <p class="service-desc">Permanent tooth replacement that looks, feels, and functions like natural teeth. Titanium posts with ceramic crowns.</p>
-                <p class="service-price">From $4,500 per implant</p>
+
+            <div class="treatment reveal" data-living-pricing>
+                <div class="treatment-num">02</div>
+                <div class="treatment-name">
+                    <h3>Surgical <em>Implants</em></h3>
+                    <div class="duration">3–6 months · titanium</div>
+                </div>
+                <p class="treatment-desc">Single tooth and full-arch implantation by our oral surgeon, working from CBCT-guided templates. Premium-grade Swiss titanium, zirconia ceramic restoration, indefinite warranty on the post.</p>
+                <div class="treatment-meta">
+                    <div class="treatment-price"><span>From</span>$4,500</div>
+                    <a href="#booking" class="treatment-cta">Inquire</a>
+                </div>
             </div>
-            <div class="service-card" data-living-pricing>
-                <div class="service-icon">💎</div>
-                <h3 class="service-name">Smile Makeover</h3>
-                <p class="service-desc">Complete smile transformation combining veneers, whitening, alignment, and contouring. Your dream smile, designed together.</p>
-                <p class="service-price">From $8,000</p>
+
+            <div class="treatment reveal" data-living-pricing>
+                <div class="treatment-num">03</div>
+                <div class="treatment-name">
+                    <h3>Complete Smile <em>Design</em></h3>
+                    <div class="duration">3–6 months · bespoke</div>
+                </div>
+                <p class="treatment-desc">A comprehensive aesthetic plan. We model your face, your bite, your light. Whitening, alignment, contouring, veneer placement — orchestrated as one. Includes facial analysis with our prosthodontist.</p>
+                <div class="treatment-meta">
+                    <div class="treatment-price"><span>From</span>$12,000</div>
+                    <a href="#booking" class="treatment-cta">Inquire</a>
+                </div>
             </div>
-            <div class="service-card" data-living-pricing>
-                <div class="service-icon">⚡</div>
-                <h3 class="service-name">Zoom Whitening</h3>
-                <p class="service-desc">Professional in-chair whitening. Up to 8 shades whiter in a single 90-minute session. Instant, visible results.</p>
-                <p class="service-price">From $695</p>
+
+            <div class="treatment reveal" data-living-pricing>
+                <div class="treatment-num">04</div>
+                <div class="treatment-name">
+                    <h3>In-Chair <em>Whitening</em></h3>
+                    <div class="duration">90 minutes · single visit</div>
+                </div>
+                <p class="treatment-desc">Professional Zoom whitening, performed in a single session. Up to eight shades lighter, immediately visible. Custom take-home trays included for ongoing maintenance.</p>
+                <div class="treatment-meta">
+                    <div class="treatment-price"><span>From</span>$695</div>
+                    <a href="#booking" class="treatment-cta">Inquire</a>
+                </div>
             </div>
-            <div class="service-card" data-living-pricing>
-                <div class="service-icon">🔄</div>
-                <h3 class="service-name">Invisalign</h3>
-                <p class="service-desc">Clear aligner therapy for straighter teeth without metal braces. Custom treatment plans with predictable results.</p>
-                <p class="service-price">From $4,200</p>
+
+            <div class="treatment reveal" data-living-pricing>
+                <div class="treatment-num">05</div>
+                <div class="treatment-name">
+                    <h3>Invisalign <em>Aligners</em></h3>
+                    <div class="duration">6–18 months · clear</div>
+                </div>
+                <p class="treatment-desc">Bespoke orthodontic correction through transparent thermoplastic aligners. Treatment plans calibrated using ClinCheck 3D modelling. Discreet to the point of invisibility.</p>
+                <div class="treatment-meta">
+                    <div class="treatment-price"><span>From</span>$4,200</div>
+                    <a href="#booking" class="treatment-cta">Inquire</a>
+                </div>
             </div>
-            <div class="service-card" data-living-pricing>
-                <div class="service-icon">👑</div>
-                <h3 class="service-name">Crowns & Bridges</h3>
-                <p class="service-desc">Restore damaged or missing teeth with precision-crafted ceramic restorations. Same-day CEREC technology available.</p>
-                <p class="service-price">From $1,500</p>
+
+            <div class="treatment reveal" data-living-pricing>
+                <div class="treatment-num">06</div>
+                <div class="treatment-name">
+                    <h3>Restorative <em>Crowns</em></h3>
+                    <div class="duration">1 day · CEREC</div>
+                </div>
+                <p class="treatment-desc">Same-day ceramic crowns, milled in-house from a single block of medical-grade zirconia. CEREC digital impression — no putty, no compromise. Walk in damaged, walk out whole.</p>
+                <div class="treatment-meta">
+                    <div class="treatment-price"><span>From</span>$1,500</div>
+                    <a href="#booking" class="treatment-cta">Inquire</a>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Social Proof (hidden — surfaced by Living.js for price shoppers) -->
-    <div data-living-value-prop data-living-social-proof style="padding:2rem 3rem; background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
-        <p style="text-align:center; color:var(--accent); font-size:0.8rem; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:1rem;">Why patients choose Luminous</p>
-        <div style="display:flex; justify-content:center; gap:3rem; flex-wrap:wrap; font-size:0.9rem; color:var(--text-dim);">
-            <span>✓ Payment plans from $50/week</span>
-            <span>✓ 10-year warranty on veneers</span>
-            <span>✓ Free parking in CBD</span>
-            <span>✓ Same-day emergency care</span>
+    <!-- Lookbook -->
+    <section class="gallery" id="lookbook">
+        <div class="gallery-header reveal">
+            <div>
+                <p class="gallery-eyebrow">— Lookbook</p>
+                <h2>Six years of <em>quiet results</em>.</h2>
+            </div>
+            <p style="max-width: 360px; font-family: var(--serif); font-style: italic; color: var(--ink-mid); font-size: 18px;">Selected work from our consenting patient archive. Each smile, considered.</p>
         </div>
-    </div>
+
+        <div class="gallery-grid reveal">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1581585504193-72b56d6cc8e6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Smile design consultation">
+                <div class="gallery-item-caption">Veneers · 8 units · 2024</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Practice detail">
+                <div class="gallery-item-caption">Dr. Chen consultation room</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Smile detail">
+                <div class="gallery-item-caption">Smile design · client portrait</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Practice interior">
+                <div class="gallery-item-caption">Theatre · sterile zone</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80" alt="Confident smile">
+                <div class="gallery-item-caption">Complete smile design · 2024</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1530497610245-94d3c16cda28?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80" alt="Patient portrait">
+                <div class="gallery-item-caption">Implant restoration · 2023</div>
+            </div>
+        </div>
+    </section>
 
     <!-- Testimonials -->
-    <section id="testimonials" class="testimonials" data-living-section="testimonials">
-        <p class="section-label">Patient Stories</p>
-        <h2 class="section-title">Hear from our patients</h2>
-        <div class="testimonial-grid">
-            <div class="testimonial">
-                <div class="testimonial-stars">★★★★★</div>
-                <p class="testimonial-text">"I'd been self-conscious about my smile for years. Dr. Chen and her team gave me veneers that look completely natural. For the first time in a decade, I smile in photos."</p>
-                <p class="testimonial-author">Sarah K.</p>
-                <p class="testimonial-role">Porcelain Veneers — 8 units</p>
+    <section class="testimonials">
+        <p class="testimonials-label">— In their words</p>
+
+        <div class="testimonial-feature reveal">
+            <p class="testimonial-feature-quote">For ten years I had not allowed myself to smile in photographs. I tried — and discarded — three other clinics before finding Luminous. The result is not a different smile. It is, finally, mine.</p>
+            <div class="testimonial-attribution">
+                <span>Sarah K.</span>
+                <span class="testimonial-attribution-divider"></span>
+                <span class="testimonial-attribution-name">Porcelain Veneers, 8 units</span>
             </div>
-            <div class="testimonial">
-                <div class="testimonial-stars">★★★★★</div>
-                <p class="testimonial-text">"The implant process was smoother than I expected. The team kept me informed at every step and the result is incredible — you can't tell which tooth is the implant."</p>
-                <p class="testimonial-author">Michael T.</p>
-                <p class="testimonial-role">Single Tooth Implant</p>
+        </div>
+
+        <div class="testimonials-secondary reveal">
+            <div class="testimonial-card">
+                <p>"They quoted me three times what the local clinic did. They also delivered a result the local clinic could not have approached. I would do it again, tomorrow."</p>
+                <div class="testimonial-card-author">
+                    <strong>Michael T.</strong>
+                    Single Tooth Implant
+                </div>
             </div>
-            <div class="testimonial">
-                <div class="testimonial-stars">★★★★★</div>
-                <p class="testimonial-text">"Booked online at midnight when I couldn't sleep from a broken tooth. Got a callback at 8am and was in the chair by 9. That's the kind of service you can't fake."</p>
-                <p class="testimonial-author">Emma L.</p>
-                <p class="testimonial-role">Emergency Crown</p>
+            <div class="testimonial-card">
+                <p>"The consultation alone was worth the trip from Melbourne. They explained the structural geometry of my face. I had not expected dentistry to feel like this."</p>
+                <div class="testimonial-card-author">
+                    <strong>Emma L.</strong>
+                    Complete Smile Design
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p>"Booked online at midnight when I cracked a crown. The callback at 8am the next morning was from the surgeon himself. That detail told me everything."</p>
+                <div class="testimonial-card-author">
+                    <strong>James W.</strong>
+                    Emergency Crown
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Nudge (shown by Living.js when visitor is idle) -->
-    <div data-living-nudge style="position:fixed; bottom:100px; right:20px; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.2rem 1.5rem; max-width:300px; z-index:9999; box-shadow:0 8px 30px rgba(0,0,0,0.5);">
-        <p style="font-size:0.9rem; margin-bottom:0.75rem;">Not sure which treatment is right for you?</p>
-        <a href="#booking" style="color:var(--accent); font-size:0.85rem; font-weight:600;">Book a free consultation →</a>
-    </div>
+    <!-- Practice -->
+    <section class="practice" id="practice">
+        <div class="practice-grid">
+            <div class="practice-image reveal">
+                <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80" alt="Dental practice interior">
+            </div>
+            <div class="practice-content reveal">
+                <h2>An address, &amp; <em>an approach</em>.</h2>
+                <p>Luminous occupies a heritage townhouse in Sydney CBD, restored in 2019 by Studio Coombes. Three treatment rooms, a private consultation suite, an in-house ceramics laboratory, and a courtyard.</p>
+                <p>We see no more than twelve patients per day, across two surgeons. We answer the phone ourselves. We do not run marketing.</p>
+                <p>You will not be sold to. You will be considered.</p>
+
+                <div class="practice-stats">
+                    <div>
+                        <div class="practice-stat-num">5,000+</div>
+                        <div class="practice-stat-label">Smiles restored</div>
+                    </div>
+                    <div>
+                        <div class="practice-stat-num">15</div>
+                        <div class="practice-stat-label">Years of practice</div>
+                    </div>
+                    <div>
+                        <div class="practice-stat-num">12</div>
+                        <div class="practice-stat-label">Patients per day max</div>
+                    </div>
+                    <div>
+                        <div class="practice-stat-num">4.9</div>
+                        <div class="practice-stat-label">Google rating</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Booking -->
-    <section id="booking" data-living-section="booking" data-living-booking>
-        <p class="section-label">Book Now</p>
-        <h2 class="section-title" style="margin-left:auto; margin-right:auto; text-align:center;">Your new smile starts here</h2>
-        <p style="text-align:center; color:var(--text-dim); margin-bottom:2.5rem; max-width:500px; margin-left:auto; margin-right:auto;">Free consultation. No obligation. We'll discuss your goals and create a personalised treatment plan.</p>
+    <section class="booking" id="booking" data-living-booking>
+        <p class="booking-eyebrow">— Begin</p>
+        <h2>Inquiries are <em>welcomed</em>.</h2>
+        <p class="booking-lede">Initial consultations are complimentary and last approximately ninety minutes. We will discuss what is possible, and what is right.</p>
+
         <form class="booking-form" data-living-form="booking">
-            <input type="text" name="name" placeholder="Full name" required>
-            <input type="email" name="email" placeholder="Email address" required>
-            <input type="tel" name="phone" placeholder="Phone number" required>
-            <select name="treatment" required>
-                <option value="" disabled selected>What are you interested in?</option>
-                <option value="veneers">Porcelain Veneers</option>
-                <option value="implants">Dental Implants</option>
-                <option value="smile-makeover">Smile Makeover</option>
-                <option value="whitening">Teeth Whitening</option>
-                <option value="invisalign">Invisalign</option>
-                <option value="crowns">Crowns & Bridges</option>
-                <option value="emergency">Emergency / Pain</option>
-                <option value="general">General Check-up</option>
-                <option value="other">Other / Not Sure</option>
-            </select>
-            <select name="timeframe">
-                <option value="" disabled selected>When would you like to come in?</option>
-                <option value="asap">As soon as possible</option>
-                <option value="this-week">This week</option>
-                <option value="next-week">Next week</option>
-                <option value="this-month">Within the month</option>
-                <option value="just-exploring">Just exploring options</option>
-            </select>
-            <textarea name="message" placeholder="Anything else we should know? (optional)" rows="3"></textarea>
-            <button type="submit" class="booking-submit">Book Free Consultation →</button>
+            <div class="field">
+                <label>Your name</label>
+                <input type="text" name="name" placeholder="First &amp; surname" required>
+            </div>
+            <div class="field">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="you@email.com" required>
+            </div>
+            <div class="field">
+                <label>Telephone</label>
+                <input type="tel" name="phone" placeholder="+61 ..." required>
+            </div>
+            <div class="field">
+                <label>Treatment of interest</label>
+                <select name="treatment" required>
+                    <option value="" disabled selected>Please choose...</option>
+                    <option value="veneers">Porcelain Veneers</option>
+                    <option value="implants">Surgical Implants</option>
+                    <option value="smile-design">Complete Smile Design</option>
+                    <option value="whitening">In-Chair Whitening</option>
+                    <option value="invisalign">Invisalign Aligners</option>
+                    <option value="crowns">Restorative Crowns</option>
+                    <option value="emergency">Urgent / pain</option>
+                    <option value="other">Something else</option>
+                </select>
+            </div>
+            <div class="field full">
+                <label>How may we help</label>
+                <textarea name="message" placeholder="Tell us what you are considering..." rows="3"></textarea>
+            </div>
+            <button type="submit" class="booking-submit">Submit Inquiry →</button>
         </form>
     </section>
 
     <!-- Footer -->
     <footer>
-        <div>
-            <span class="nav-logo" style="font-size:1rem;">Luminous Dental</span>
-            <span style="margin-left:1rem;">© 2026 • Sydney CBD</span>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3>Luminous<em>.</em></h3>
+                <p>A considered cosmetic dental practice. Sydney CBD, by appointment only.</p>
+            </div>
+            <div class="footer-col">
+                <h4>The Practice</h4>
+                <ul>
+                    <li>Treatments</li>
+                    <li>Lookbook</li>
+                    <li>Our team</li>
+                    <li>Press</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Visit</h4>
+                <ul>
+                    <li>42 Hunter Street</li>
+                    <li>Sydney CBD 2000</li>
+                    <li>+61 2 8000 1234</li>
+                    <li>hello@luminous.dental</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Hours</h4>
+                <ul>
+                    <li>Mon — Fri 8 to 5</li>
+                    <li>Saturday by request</li>
+                    <li>Sunday closed</li>
+                    <li>24h emergency</li>
+                </ul>
+            </div>
         </div>
-        <div class="footer-badge">
-            Powered by <a href="https://livingjs.australianweb.agency" target="_blank" style="color:var(--accent);">Living.js</a> — <a href="https://australianweb.agency" target="_blank" style="color:var(--accent);">Australian Web Agency</a>
+        <div class="footer-bottom">
+            <span>© 2026 Luminous Dental Studio · Sydney, Australia</span>
+            <span>Living website by <a href="https://livingjs.australianweb.agency">Living.js</a> · <a href="https://australianweb.agency">Australian Web Agency</a></span>
         </div>
     </footer>
 
-    <!-- ═══════════════════════════════════════════════════════════════
-         LIVING.JS v0.1.0 — INLINE BUNDLE
-         All core modules inlined for standalone demo.
-         In production, use: import Living from 'livingjs';
-         ═══════════════════════════════════════════════════════════════ -->
+    <!-- Living.js Inline Bundle -->
     <script>
     (function() {
         'use strict';
 
-        // ─── OBSERVER ───────────────────────────────────────────
         class Observer {
             constructor(config = {}) {
                 this.signals = {
                     scrollDepth: 0, maxScrollDepth: 0, timeOnPage: 0,
                     timeOnSections: {}, clicks: [], clickCount: 0,
-                    referrer: document.referrer || 'direct',
                     source: this._detectSource(),
                     device: this._detectDevice(),
                     hour: new Date().getHours(),
                     isAfterHours: false, isWeekend: false,
-                    isReturning: false, visitCount: 0, lastVisit: null,
+                    isReturning: false, visitCount: 0,
                     exitIntentFired: false, idleTime: 0, engagementScore: 0,
                     urgencySignals: [], sectionsViewed: new Set(),
                     formInteractions: 0, phoneClickAttempts: 0,
                 };
-                this.listeners = [];
-                this.sectionObservers = [];
                 this.config = config;
                 this._startTime = Date.now();
                 this._lastActivity = Date.now();
@@ -585,19 +893,13 @@
                 this._trackIdle();
                 this._trackExitIntent();
                 this._trackForms();
-                this._startEngagementTimer();
-                try {
-                    const visits = JSON.parse(localStorage.getItem('_living_visits') || '[]');
-                    visits.push({ ts: Date.now(), page: location.pathname });
-                    localStorage.setItem('_living_visits', JSON.stringify(visits.slice(-50)));
-                } catch(e) {}
+                setInterval(() => { this.signals.engagementScore = this._calculateEngagement(); }, 3000);
                 return this;
             }
 
             on(event, callback) {
                 if (!this._callbacks.has(event)) this._callbacks.set(event, []);
                 this._callbacks.get(event).push(callback);
-                return this;
             }
 
             _emit(event, data) {
@@ -612,8 +914,6 @@
 
             _detectSource() {
                 const params = new URLSearchParams(location.search);
-                if (params.get('gclid')) return 'google-ads';
-                if (params.get('fbclid')) return 'facebook-ads';
                 if (params.get('utm_source')) return params.get('utm_source');
                 const ref = document.referrer;
                 if (!ref) return 'direct';
@@ -623,7 +923,7 @@
 
             _detectDevice() {
                 const w = window.innerWidth;
-                return { type: w < 768 ? 'mobile' : w < 1024 ? 'tablet' : 'desktop', touch: 'ontouchstart' in window, width: w, height: window.innerHeight };
+                return { type: w < 768 ? 'mobile' : w < 1024 ? 'tablet' : 'desktop' };
             }
 
             _detectReturnVisitor() {
@@ -632,7 +932,6 @@
                     if (data) {
                         this.signals.isReturning = true;
                         this.signals.visitCount = (data.count || 0) + 1;
-                        this.signals.lastVisit = data.lastVisit;
                         localStorage.setItem('_living_visitor', JSON.stringify({ count: this.signals.visitCount, firstVisit: data.firstVisit, lastVisit: Date.now() }));
                     } else {
                         this.signals.visitCount = 1;
@@ -642,18 +941,16 @@
             }
 
             _detectTimeContext() {
-                const now = new Date();
-                const hour = now.getHours();
-                const bh = this.config.businessHours || this.config.business?.hours || { start: 9, end: 17 };
+                const hour = new Date().getHours();
+                const bh = this.config.business?.hours || { start: 9, end: 17 };
                 this.signals.hour = hour;
                 this.signals.isAfterHours = hour < bh.start || hour >= bh.end;
-                this.signals.isWeekend = now.getDay() === 0 || now.getDay() === 6;
                 if (hour >= 22 || hour <= 5) this.signals.urgencySignals.push('late-night-browsing');
             }
 
             _trackScroll() {
                 let ticking = false;
-                const onScroll = () => {
+                window.addEventListener('scroll', () => {
                     if (ticking) return;
                     ticking = true;
                     requestAnimationFrame(() => {
@@ -662,72 +959,60 @@
                         if (depth > this.signals.maxScrollDepth) this.signals.maxScrollDepth = depth;
                         if (depth > 75 && !this.signals.urgencySignals.includes('deep-scroll')) {
                             this.signals.urgencySignals.push('deep-scroll');
-                            this._emit('deep-scroll', { depth });
                         }
                         this._lastActivity = Date.now();
                         ticking = false;
                     });
-                };
-                window.addEventListener('scroll', onScroll, { passive: true });
-                this.listeners.push(['scroll', onScroll]);
+                }, { passive: true });
             }
 
             _trackClicks() {
-                const onClick = (e) => {
-                    const target = e.target.closest('a, button, [data-living], input[type="submit"]');
+                document.addEventListener('click', (e) => {
+                    const target = e.target.closest('a, button, [data-living]');
                     if (!target) return;
-                    const clickData = { tag: target.tagName, text: (target.textContent || '').trim().slice(0, 80), href: target.href || null, ts: Date.now() };
-                    this.signals.clicks.push(clickData);
                     this.signals.clickCount++;
                     this._lastActivity = Date.now();
                     if (target.href && target.href.startsWith('tel:')) {
                         this.signals.phoneClickAttempts++;
                         this.signals.urgencySignals.push('phone-click');
-                        this._emit('phone-click', clickData);
+                        this._emit('phone-click', {});
                     }
-                    if (target.matches('[data-living-cta], .cta, .btn-primary, [class*="book"], [class*="contact"]')) this._emit('cta-click', clickData);
-                    if (target.closest('[data-living-pricing], [class*="pricing"], [class*="price"]')) {
-                        this.signals.urgencySignals.push('pricing-interest');
-                        this._emit('pricing-interest', clickData);
+                    if (target.matches('[data-living-cta]')) this._emit('cta-click', {});
+                    if (target.closest('[data-living-pricing]')) {
+                        if (!this.signals.urgencySignals.includes('pricing-interest')) {
+                            this.signals.urgencySignals.push('pricing-interest');
+                        }
+                        this._emit('pricing-interest', {});
                     }
-                    this._emit('click', clickData);
-                };
-                document.addEventListener('click', onClick, { passive: true });
-                this.listeners.push(['click', onClick]);
+                }, { passive: true });
             }
 
             _trackSections() {
-                const sections = document.querySelectorAll('section, [data-living-section], [id]');
-                if (!sections.length || !('IntersectionObserver' in window)) return;
-                const sectionTimes = {};
-                const observer = new IntersectionObserver((entries) => {
+                const sections = document.querySelectorAll('section, [id]');
+                if (!sections.length) return;
+                new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
-                        const id = entry.target.id || entry.target.dataset.livingSection || entry.target.tagName;
-                        if (entry.isIntersecting) {
-                            sectionTimes[id] = Date.now();
-                            this.signals.sectionsViewed.add(id);
-                            this._emit('section-enter', { id });
-                        } else if (sectionTimes[id]) {
-                            const t = Math.round((Date.now() - sectionTimes[id]) / 1000);
-                            this.signals.timeOnSections[id] = (this.signals.timeOnSections[id] || 0) + t;
-                            delete sectionTimes[id];
-                            if (t > 15) this._emit('section-interest', { id, seconds: t });
-                        }
+                        const id = entry.target.id || entry.target.tagName;
+                        if (entry.isIntersecting) this.signals.sectionsViewed.add(id);
                     });
-                }, { threshold: 0.3 });
-                sections.forEach(s => observer.observe(s));
-                this.sectionObservers.push(observer);
+                }, { threshold: 0.3 }).observe(sections[0]);
+                sections.forEach(s => {
+                    new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            const id = entry.target.id || entry.target.tagName;
+                            if (entry.isIntersecting) this.signals.sectionsViewed.add(id);
+                        });
+                    }, { threshold: 0.3 }).observe(s);
+                });
             }
 
             _trackForms() {
-                const onFocus = (e) => {
+                document.addEventListener('focusin', (e) => {
                     if (e.target.matches('input, textarea, select')) {
                         this.signals.formInteractions++;
                         this._lastActivity = Date.now();
-                        if (this.signals.formInteractions === 1) this._emit('form-start', {});
                     }
-                };
-                document.addEventListener('focusin', onFocus, { passive: true });
+                }, { passive: true });
             }
 
             _trackIdle() {
@@ -739,26 +1024,14 @@
             }
 
             _trackExitIntent() {
-                if (this.signals.device.type === 'mobile') {
-                    document.addEventListener('visibilitychange', () => {
-                        if (document.hidden && !this.signals.exitIntentFired) {
-                            this.signals.exitIntentFired = true;
-                            this._emit('exit-intent', { trigger: 'tab-switch' });
-                        }
-                    });
-                } else {
-                    const onLeave = (e) => {
+                if (this.signals.device.type !== 'mobile') {
+                    document.addEventListener('mouseout', (e) => {
                         if (e.clientY < 5 && !this.signals.exitIntentFired) {
                             this.signals.exitIntentFired = true;
-                            this._emit('exit-intent', { trigger: 'mouse-leave' });
+                            this._emit('exit-intent', {});
                         }
-                    };
-                    document.addEventListener('mouseout', onLeave);
+                    });
                 }
-            }
-
-            _startEngagementTimer() {
-                setInterval(() => { this.signals.engagementScore = this._calculateEngagement(); }, 3000);
             }
 
             _calculateEngagement() {
@@ -773,19 +1046,13 @@
                 if (s.phoneClickAttempts > 0) score += 5;
                 return Math.min(100, score);
             }
-
-            destroy() {
-                this.listeners.forEach(([e, fn]) => { document.removeEventListener(e, fn); window.removeEventListener(e, fn); });
-                this.sectionObservers.forEach(o => o.disconnect());
-            }
         }
 
-        // ─── BRAIN (Rule Engine Only — no AI for demo) ──────────
         class Brain {
             constructor(config = {}) { this.config = config; this.cache = new Map(); }
 
             async decide(signals) {
-                const key = `${signals.device?.type}|${signals.isAfterHours}|${signals.isReturning}|${Math.round(signals.engagementScore/20)*20}|${signals.maxScrollDepth > 60}|${signals.phoneClickAttempts}|${signals.source}`;
+                const key = `${signals.device?.type}|${signals.isAfterHours}|${signals.isReturning}|${Math.round(signals.engagementScore/20)*20}|${signals.maxScrollDepth > 60}|${signals.phoneClickAttempts}`;
                 if (this.cache.has(key)) return this.cache.get(key);
                 const decision = this._evaluate(signals);
                 this.cache.set(key, decision);
@@ -793,168 +1060,94 @@
             }
 
             _evaluate(s) {
-                // Emergency: phone clicks + after hours
                 if (s.phoneClickAttempts >= 2 && s.isAfterHours) {
-                    return { intent: 'emergency', urgency: 10, confidence: 0.95, source: 'rules',
-                        actions: [
-                            { type: 'show-modal', target: '#living-emergency-modal', data: { template: 'emergency-callback' } },
-                        ],
-                        message: "Can't reach us by phone? Leave your number — we'll call you first thing." };
+                    return { intent: 'emergency', urgency: 10, actions: [
+                        { type: 'show-modal', data: { template: 'emergency-callback' } },
+                    ], message: "Cannot reach us by telephone? Leave your number — we shall call at first light." };
                 }
-
-                // Ready to book: high engagement + pricing interest
                 if (s.engagementScore > 70 && s.maxScrollDepth > 60 && s.urgencySignals.includes('pricing-interest')) {
-                    return { intent: 'ready-to-book', urgency: 8, confidence: 0.9, source: 'rules',
-                        actions: [
-                            { type: 'swap-cta', target: '[data-living-cta]', data: { text: 'Book Your Free Consultation →', style: 'urgent' } },
-                            { type: 'highlight-section', target: '#booking', data: {} },
-                        ], message: null };
+                    return { intent: 'ready-to-book', urgency: 8, actions: [
+                        { type: 'swap-cta', target: '[data-living-cta]', data: { text: 'Begin a Consultation', style: 'urgent' } },
+                        { type: 'highlight-section', target: '#booking' },
+                    ], message: null };
                 }
-
-                // Return visitor: personalize
                 if (s.isReturning && s.visitCount >= 3) {
-                    return { intent: 'returning-client', urgency: 6, confidence: 0.85, source: 'rules',
-                        actions: [
-                            { type: 'swap-cta', target: '[data-living-cta]', data: { text: 'Welcome Back — Ready to Get Started?', style: 'warm' } },
-                        ],
-                        message: "Welcome back! You've been thinking about this. Let's make it happen." };
+                    return { intent: 'returning-client', urgency: 6, actions: [
+                        { type: 'swap-cta', target: '[data-living-cta]', data: { text: 'Welcome Back — Inquire', style: 'warm' } },
+                    ], message: "Welcome back. When you are ready, we are here." };
                 }
-
-                // Price shopping: pricing click + low engagement + quick visit
-                if (s.urgencySignals.includes('pricing-interest') && s.timeOnPage < 30 && s.engagementScore < 30) {
-                    return { intent: 'price-shopping', urgency: 4, confidence: 0.8, source: 'rules',
-                        actions: [
-                            { type: 'show-element', target: '[data-living-value-prop]', data: {} },
-                            { type: 'highlight-section', target: '#testimonials', data: {} },
-                        ], message: null };
-                }
-
-                // After hours browsing
                 if (s.isAfterHours && s.engagementScore > 30) {
-                    return { intent: 'considering', urgency: 5, confidence: 0.85, source: 'rules',
-                        actions: [
-                            { type: 'show-element', target: '[data-living-after-hours]', data: {} },
-                            { type: 'swap-cta', target: '[data-living-cta]', data: { text: 'Book Online — Available 24/7', style: 'default' } },
-                        ],
-                        message: "We're currently closed, but you can book online anytime." };
+                    return { intent: 'considering', urgency: 5, actions: [],
+                        message: "We are presently closed. Inquiries by form will be answered first thing." };
                 }
-
-                // Exit intent for engaged visitors
                 if (s.exitIntentFired && s.engagementScore > 40 && s.formInteractions === 0) {
-                    return { intent: 'considering', urgency: 7, confidence: 0.85, source: 'rules',
-                        actions: [
-                            { type: 'show-modal', target: '#living-exit-modal', data: { template: 'exit-offer' } },
-                        ],
-                        message: "Before you go — would you like a free consultation?" };
+                    return { intent: 'considering', urgency: 7, actions: [
+                        { type: 'show-modal', data: { template: 'exit-offer' } },
+                    ], message: "Before you depart — may we extend a complimentary consultation?" };
                 }
-
-                // Mobile late night
-                if (s.device?.type === 'mobile' && s.urgencySignals.includes('late-night-browsing')) {
-                    return { intent: 'emergency', urgency: 7, confidence: 0.8, source: 'rules',
-                        actions: [
-                            { type: 'show-element', target: '[data-living-emergency]', data: {} },
-                        ], message: null };
-                }
-
-                // Idle re-engage
                 if (s.idleTime > 30 && s.engagementScore > 20 && s.engagementScore < 60) {
-                    return { intent: 'browsing', urgency: 3, confidence: 0.7, source: 'rules',
-                        actions: [
-                            { type: 'show-element', target: '[data-living-nudge]', data: {} },
-                        ],
-                        message: "Still looking? We can help you find exactly what you need." };
+                    return { intent: 'browsing', urgency: 3, actions: [],
+                        message: "Considering your options? We invite you to begin a conversation." };
                 }
-
-                return { intent: 'browsing', urgency: 1, actions: [], confidence: 0.3, source: 'rules-default', message: null };
+                return { intent: 'browsing', urgency: 1, actions: [], message: null };
             }
         }
 
-        // ─── ACTOR ──────────────────────────────────────────────
         class Actor {
-            constructor(config = {}) { this.config = config; this._originals = new Map(); this.actionsExecuted = []; }
+            constructor() { this._originals = new Map(); }
 
             async execute(decision) {
                 if (!decision || !decision.actions) return;
                 for (const action of decision.actions) {
-                    try { await this._exec(action, decision); this.actionsExecuted.push({ ...action, ts: Date.now() }); }
-                    catch(e) { console.warn('[Living.js]', action.type, e.message); }
+                    try { await this._exec(action, decision); } catch(e) {}
                 }
                 if (decision.message) this._showMessage(decision.message, decision.urgency);
             }
 
             async _exec(action, decision) {
                 switch(action.type) {
-                    case 'show-element': return this._show(action.target);
-                    case 'hide-element': return this._hide(action.target);
                     case 'swap-cta': return this._swapCta(action.target, action.data);
                     case 'show-modal': return this._showModal(action.data, decision);
                     case 'highlight-section': return this._highlight(action.target);
                 }
             }
 
-            _show(sel) {
-                document.querySelectorAll(sel).forEach(el => {
-                    el.style.display = '';
-                    el.style.opacity = '0';
-                    el.style.transform = 'translateY(10px)';
-                    requestAnimationFrame(() => {
-                        el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-                        el.style.opacity = '1';
-                        el.style.transform = 'translateY(0)';
-                    });
-                });
-            }
-
-            _hide(sel) {
-                document.querySelectorAll(sel).forEach(el => {
-                    el.style.transition = 'opacity 0.3s';
-                    el.style.opacity = '0';
-                    setTimeout(() => el.style.display = 'none', 300);
-                });
-            }
-
             _swapCta(sel, data) {
                 document.querySelectorAll(sel).forEach(el => {
-                    if (!this._originals.has(el)) this._originals.set(el, { text: el.textContent, className: el.className });
-                    if (data.text) el.textContent = data.text;
-                    if (data.style === 'urgent') {
-                        el.style.background = '#FFD700';
-                        el.style.color = '#000';
-                        el.style.fontWeight = '700';
-                        el.style.animation = 'living-pulse 2s infinite';
-                    } else if (data.style === 'warm') {
-                        el.style.borderColor = '#FFD700';
-                        el.style.color = '#FFD700';
+                    if (!this._originals.has(el)) this._originals.set(el, { html: el.innerHTML });
+                    if (data.text) {
+                        if (el.classList.contains('btn-primary')) {
+                            el.innerHTML = `<span>${data.text}</span><span>→</span>`;
+                        } else {
+                            el.textContent = data.text;
+                        }
                     }
+                    if (data.style === 'urgent') el.style.background = 'var(--ochre-deep)';
                 });
             }
 
             _highlight(sel) {
                 const el = document.querySelector(sel);
-                if (!el) return;
-                el.style.outline = '2px solid rgba(201,169,98,0.6)';
-                el.style.outlineOffset = '8px';
-                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                setTimeout(() => { el.style.outline = 'none'; }, 3000);
+                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
 
             _showModal(data, decision) {
                 if (document.querySelector('.living-modal')) return;
                 const modal = document.createElement('div');
                 modal.className = 'living-modal';
-                modal.style.cssText = 'display:flex; position:fixed; inset:0; z-index:100000; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); align-items:center; justify-content:center; opacity:0; transition:opacity 0.3s;';
+                modal.style.cssText = 'display:flex; position:fixed; inset:0; z-index:100000; background:rgba(26,24,21,0.92); backdrop-filter:blur(12px); align-items:center; justify-content:center; opacity:0; transition:opacity 0.5s; padding:1.5rem;';
 
                 const isEmergency = data.template === 'emergency-callback';
                 modal.innerHTML = `
-                    <div style="background:#111; border:1px solid ${isEmergency ? '#ff4444' : 'rgba(201,169,98,0.2)'}; border-radius:16px; padding:2.5rem; max-width:440px; width:90%; position:relative; color:#fff; font-family:inherit;">
-                        <button onclick="this.closest('.living-modal').remove()" style="position:absolute; top:1rem; right:1rem; background:none; border:none; color:#888; font-size:1.5rem; cursor:pointer;">×</button>
-                        <div style="font-size:2.5rem; margin-bottom:1rem;">${isEmergency ? '🚨' : '💬'}</div>
-                        <h2 style="font-size:1.4rem; margin-bottom:0.5rem; color:${isEmergency ? '#ff4444' : '#C9A962'};">${isEmergency ? 'Need urgent help?' : (decision.message || 'Before you go...')}</h2>
-                        <p style="color:#aaa; margin-bottom:1.5rem; line-height:1.6; font-size:0.95rem;">${isEmergency ? 'Leave your number and we\'ll call you back as soon as we\'re available.' : 'Get a free, no-obligation consultation. We\'ll review your situation and give you honest advice.'}</p>
-                        <form style="display:flex; flex-direction:column; gap:0.75rem;" onsubmit="event.preventDefault(); this.innerHTML='<div style=\\'text-align:center; color:#C9A962; font-size:1.2rem; padding:2rem 0;\\'>✓ Thank you! We\\'ll be in touch soon.</div>';">
-                            <input type="text" placeholder="Your name" required style="background:#1a1a1a; border:1px solid #333; color:#fff; padding:0.85rem 1rem; border-radius:8px; font-size:0.95rem;">
-                            <input type="${isEmergency ? 'tel' : 'email'}" placeholder="${isEmergency ? 'Your phone number' : 'Your email'}" required style="background:#1a1a1a; border:1px solid #333; color:#fff; padding:0.85rem 1rem; border-radius:8px; font-size:0.95rem;">
-                            <button type="submit" style="background:${isEmergency ? '#ff4444' : '#C9A962'}; color:${isEmergency ? '#fff' : '#000'}; border:none; padding:1rem; border-radius:8px; font-size:1rem; font-weight:700; cursor:pointer;">${isEmergency ? 'Request Callback →' : 'Get Free Consultation →'}</button>
+                    <div style="background:var(--cream); padding:4rem 3rem; max-width:520px; width:100%; position:relative; color:var(--ink);">
+                        <button onclick="this.closest('.living-modal').remove()" style="position:absolute; top:1.5rem; right:1.5rem; background:none; border:none; color:var(--ink-mid); font-size:1.5rem; cursor:pointer; font-family:var(--serif);">×</button>
+                        <p style="font-size:11px; letter-spacing:0.3em; text-transform:uppercase; color:var(--ink-mid); margin-bottom:1.5rem; font-family:var(--sans);">— ${isEmergency ? 'Urgent' : 'A note before you go'}</p>
+                        <h2 style="font-family:var(--serif); font-size:36px; font-weight:300; line-height:1.05; margin-bottom:1.5rem; letter-spacing:-0.01em;">${isEmergency ? 'Need urgent <em style="color:var(--burnt); font-style:italic;">care</em>?' : 'Before you <em style="color:var(--ochre-deep); font-style:italic;">depart</em>...'}</h2>
+                        <p style="font-family:var(--serif); font-style:italic; font-size:18px; color:var(--ink-soft); line-height:1.5; margin-bottom:2.5rem;">${isEmergency ? 'Leave your number and we shall return your call as soon as our practitioner is free.' : 'We extend a complimentary consultation — ninety minutes, no obligation.'}</p>
+                        <form style="display:flex; flex-direction:column; gap:1.5rem;" onsubmit="event.preventDefault(); this.innerHTML='<div style=\\'text-align:center; color:var(--ochre-deep); font-family:var(--serif); font-style:italic; font-size:20px; padding:2rem 0;\\'>✦ Thank you. We shall be in touch.</div>';">
+                            <input type="text" placeholder="Your name" required style="background:transparent; border:none; border-bottom:1px solid var(--ink); padding:0.85rem 0; font-family:var(--serif); font-size:18px; color:var(--ink); font-style:italic;">
+                            <input type="${isEmergency ? 'tel' : 'email'}" placeholder="${isEmergency ? 'Telephone' : 'Email'}" required style="background:transparent; border:none; border-bottom:1px solid var(--ink); padding:0.85rem 0; font-family:var(--serif); font-size:18px; color:var(--ink); font-style:italic;">
+                            <button type="submit" style="background:var(--ink); color:var(--cream); border:none; padding:1.2rem; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; cursor:pointer; margin-top:1rem; font-family:var(--sans);">${isEmergency ? 'Request Callback →' : 'Submit Inquiry →'}</button>
                         </form>
                     </div>`;
 
@@ -967,45 +1160,25 @@
                 if (document.querySelector('.living-msg')) return;
                 const msg = document.createElement('div');
                 msg.className = 'living-msg';
-                const borderColor = urgency > 7 ? '#ff4444' : urgency > 4 ? '#C9A962' : 'rgba(255,255,255,0.1)';
-                msg.style.cssText = `position:fixed; bottom:20px; left:50%; transform:translateX(-50%) translateY(100px); z-index:99999; background:#111; border:1px solid ${borderColor}; border-radius:12px; padding:1rem 1.5rem; display:flex; align-items:center; gap:1rem; max-width:480px; width:90%; color:#fff; font-size:0.9rem; box-shadow:0 10px 40px rgba(0,0,0,0.5); transition:transform 0.4s cubic-bezier(0.25,1,0.5,1);`;
-                msg.innerHTML = `<span>${urgency > 7 ? '🚨 ' : ''}${text}</span><button onclick="this.parentNode.remove()" style="background:none; border:none; color:#666; font-size:1.2rem; cursor:pointer; flex-shrink:0;">×</button>`;
+                const accent = urgency > 7 ? 'var(--burnt)' : 'var(--ochre)';
+                msg.style.cssText = `position:fixed; bottom:2rem; left:50%; transform:translateX(-50%) translateY(150px); z-index:99999; background:var(--ink); border:1px solid ${accent}; padding:1.25rem 2rem; display:flex; align-items:center; gap:1.5rem; max-width:540px; width:90%; color:var(--cream); font-size:15px; font-family:var(--serif); font-style:italic; transition:transform 0.6s cubic-bezier(0.22,1,0.36,1); line-height:1.5;`;
+                msg.innerHTML = `<span style="display:flex; align-items:center; gap:0.75rem;"><span style="color:${accent};">${urgency > 7 ? '✦' : '—'}</span><span>${text}</span></span><button onclick="this.parentNode.remove()" style="background:none; border:none; color:rgba(245,241,234,0.5); font-size:1.4rem; cursor:pointer; flex-shrink:0; font-family:var(--serif);">×</button>`;
                 document.body.appendChild(msg);
                 requestAnimationFrame(() => msg.style.transform = 'translateX(-50%) translateY(0)');
-                setTimeout(() => { msg.style.transform = 'translateX(-50%) translateY(100px)'; setTimeout(() => msg.remove(), 400); }, 8000);
-            }
-
-            injectStyles() {
-                if (document.querySelector('#living-styles')) return;
-                const s = document.createElement('style');
-                s.id = 'living-styles';
-                s.textContent = `@keyframes living-pulse { 0%,100%{box-shadow:0 0 0 0 rgba(255,215,0,0.4)} 50%{box-shadow:0 0 0 12px rgba(255,215,0,0)} }`;
-                document.head.appendChild(s);
+                setTimeout(() => { msg.style.transform = 'translateX(-50%) translateY(150px)'; setTimeout(() => msg.remove(), 600); }, 9000);
             }
         }
 
-        // ─── LIVING.JS MAIN ─────────────────────────────────────
-        const presets = {
-            'cosmetic-dental': {
-                business: { type:'cosmetic-dental', industry:'healthcare', services:['veneers','implants','whitening','invisalign','smile-makeover','crowns'], avgDealValue:'$3,000-$15,000', hours:{start:8,end:17} },
-                behaviors: ['lead-qualify','emergency-detect','auto-book','after-hours','return-visitor'],
-                decisionInterval: 5000,
-            },
-        };
-
         const config = {
-            ...presets['cosmetic-dental'],
-            business: { ...presets['cosmetic-dental'].business, location: 'Sydney CBD' },
+            business: { type:'cosmetic-dental', location:'Sydney CBD', hours:{start:8,end:17} },
+            decisionInterval: 5000,
         };
 
         const observer = new Observer(config);
         const brain = new Brain(config);
-        const actor = new Actor(config);
-
-        actor.injectStyles();
+        const actor = new Actor();
         observer.start();
 
-        // High-priority events → immediate decisions
         ['phone-click','exit-intent','cta-click','pricing-interest'].forEach(event => {
             observer.on(event, async (data, signals) => {
                 const decision = await brain.decide(signals);
@@ -1020,7 +1193,6 @@
             updateBanner(signals, decision);
         });
 
-        // Decision loop
         let lastKey = '';
         setInterval(async () => {
             const signals = observer.getSignals();
@@ -1035,24 +1207,48 @@
             updateBanner(signals, decision);
         }, config.decisionInterval);
 
-        // Demo banner updater
         function updateBanner(signals, decision) {
             const scoreEl = document.getElementById('demo-score');
             const intentEl = document.getElementById('demo-intent');
             if (scoreEl) scoreEl.textContent = signals.engagementScore;
-            if (intentEl) intentEl.textContent = decision?.intent || 'browsing';
+            if (intentEl && decision) intentEl.textContent = decision.intent || 'browsing';
         }
 
-        // Form submission handler
+        // Form submission
         document.querySelector('[data-living-form="booking"]')?.addEventListener('submit', (e) => {
             e.preventDefault();
             const data = Object.fromEntries(new FormData(e.target));
-            e.target.innerHTML = `<div style="text-align:center; padding:3rem 0;"><div style="font-size:3rem; margin-bottom:1rem;">✓</div><h3 style="font-family:var(--serif); font-size:1.5rem; margin-bottom:0.5rem; color:var(--accent);">Consultation Booked</h3><p style="color:var(--text-dim);">Thank you ${data.name}! We'll confirm your appointment within 2 hours.</p></div>`;
+            e.target.innerHTML = `<div style="grid-column:span 2; text-align:center; padding:4rem 0;">
+                <div style="font-family:var(--serif); font-size:48px; color:var(--ochre); margin-bottom:1.5rem; font-style:italic;">✦</div>
+                <h3 style="font-family:var(--serif); font-size:36px; font-weight:300; color:var(--ink); margin-bottom:1rem; line-height:1.1;">Thank you, <em style="color:var(--ochre-deep); font-style:italic;">${data.name.split(' ')[0]}</em>.</h3>
+                <p style="font-family:var(--serif); font-style:italic; font-size:20px; color:var(--ink-soft); max-width:480px; margin:0 auto; line-height:1.5;">Your inquiry has been received. We shall be in touch within two hours.</p>
+            </div>`;
         });
 
-        console.log('%c⚡ Living.js v0.1.0 %c— Demo mode. Your website is alive.', 'background:#FFD700; color:#000; padding:4px 8px; border-radius:4px; font-weight:bold;', 'color:#FFD700;');
-        document.dispatchEvent(new CustomEvent('living:ready'));
+        // Nav scroll
+        const nav = document.getElementById('mainNav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        }, { passive: true });
 
+        // Reveal animations
+        new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' })
+            .observe(document.querySelector('.reveal'));
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' }).observe(el);
+        });
+
+        console.log('%c✦ Living.js v0.1.0 %c— Editorial mode', 'background:#B88A4D; color:#FAF7F1; padding:4px 8px;', 'color:#B88A4D;');
     })();
     </script>
 
