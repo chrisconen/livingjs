@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luminous Dental Studio | Premium Cosmetic Dentistry Sydney</title>
-    <meta name="description" content="Transform your smile at Sydney's premier cosmetic dental studio. Veneers, implants, whitening & Invisalign. Book your free consultation today.">
+    <title>Living.js Demo — Luminous Dental Studio | Cosmetic Dentistry Sydney</title>
+    <meta name="description" content="Live demo of Living.js — watch an autonomous AI agent transform a cosmetic dental website in real-time. Open DevTools to see decisions.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,9 +36,63 @@
 
         a { color: inherit; text-decoration: none; }
 
+        /* ─── Demo Banner ─── */
+        .demo-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10000;
+            background: #111;
+            border-bottom: 1px solid var(--accent);
+            padding: 0.5rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'JetBrains Mono', 'SF Mono', monospace;
+            font-size: 11px;
+        }
+
+        .demo-banner-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .demo-banner .bolt { color: var(--accent); font-weight: 700; }
+
+        .demo-banner-label {
+            color: var(--text-dim);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .demo-banner-score {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .demo-banner-intent {
+            padding: 0.15rem 0.5rem;
+            background: rgba(201,169,98,0.1);
+            border: 1px solid rgba(201,169,98,0.2);
+            border-radius: 4px;
+            color: var(--accent);
+        }
+
+        .demo-banner a {
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: opacity 0.2s;
+        }
+
+        .demo-banner a:hover { opacity: 0.7; }
+
         /* ─── Navigation ─── */
         nav {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            position: fixed; top: 32px; left: 0; right: 0; z-index: 1000;
             padding: 1.5rem 3rem;
             display: flex; justify-content: space-between; align-items: center;
             background: rgba(10,10,10,0.9);
@@ -80,7 +134,7 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            padding: 8rem 3rem 4rem;
+            padding: 10rem 3rem 4rem;
             position: relative;
             overflow: hidden;
         }
@@ -93,11 +147,7 @@
             pointer-events: none;
         }
 
-        .hero-content {
-            max-width: 700px;
-            position: relative;
-            z-index: 1;
-        }
+        .hero-content { max-width: 700px; position: relative; z-index: 1; }
 
         .hero-label {
             font-size: 0.75rem;
@@ -115,10 +165,7 @@
             margin-bottom: 1.5rem;
         }
 
-        .hero-title em {
-            font-style: italic;
-            color: var(--accent);
-        }
+        .hero-title em { font-style: italic; color: var(--accent); }
 
         .hero-subtitle {
             font-size: 1.1rem;
@@ -214,22 +261,14 @@
             max-width: 1200px;
         }
 
-        .testimonial {
-            padding: 2rem;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-        }
-
+        .testimonial { padding: 2rem; border: 1px solid var(--border); border-radius: 12px; }
         .testimonial-stars { color: var(--accent); margin-bottom: 1rem; font-size: 0.9rem; }
         .testimonial-text { font-size: 0.95rem; color: var(--text-dim); margin-bottom: 1rem; font-style: italic; }
         .testimonial-author { font-weight: 500; font-size: 0.85rem; }
         .testimonial-role { font-size: 0.75rem; color: var(--text-dim); }
 
-        /* ─── Booking Section ─── */
-        #booking {
-            background: var(--bg);
-            text-align: center;
-        }
+        /* ─── Booking ─── */
+        #booking { background: var(--bg); text-align: center; }
 
         .booking-form {
             max-width: 500px;
@@ -254,10 +293,7 @@
 
         .booking-form input:focus,
         .booking-form select:focus,
-        .booking-form textarea:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
+        .booking-form textarea:focus { outline: none; border-color: var(--accent); }
 
         .booking-form select { cursor: pointer; }
         .booking-form select option { background: var(--surface); }
@@ -301,26 +337,36 @@
             opacity: 0.6;
         }
 
-        /* ─── Living.js Data Attributes (hidden by default) ─── */
+        /* ─── Hidden Living.js elements ─── */
         [data-living-after-hours],
         [data-living-emergency],
         [data-living-nudge],
-        [data-living-value-prop] {
-            display: none;
-        }
+        [data-living-value-prop] { display: none; }
 
         /* ─── Responsive ─── */
         @media (max-width: 768px) {
             nav { padding: 1rem 1.5rem; }
             .nav-links { display: none; }
-            .hero { padding: 7rem 1.5rem 3rem; }
+            .hero { padding: 8rem 1.5rem 3rem; }
             section { padding: 4rem 1.5rem; }
             .trust { gap: 2rem; flex-wrap: wrap; }
             footer { flex-direction: column; gap: 1rem; text-align: center; }
+            .demo-banner { flex-direction: column; gap: 0.5rem; text-align: center; }
         }
     </style>
 </head>
 <body>
+
+    <!-- ═══ LIVING.JS DEMO BANNER ═══ -->
+    <div class="demo-banner">
+        <div class="demo-banner-left">
+            <span><span class="bolt">⚡</span> Living.js Demo</span>
+            <span class="demo-banner-label">Engagement:</span>
+            <span class="demo-banner-score" id="demo-score">0</span>
+            <span class="demo-banner-intent" id="demo-intent">browsing</span>
+        </div>
+        <a href="https://livingjs.australianweb.agency" target="_blank">← Back to Living.js</a>
+    </div>
 
     <!-- Navigation -->
     <nav>
@@ -345,14 +391,12 @@
             </a>
         </div>
 
-        <!-- Living.js: After-hours message (hidden by default, shown by Living.js) -->
         <div data-living-after-hours style="position:absolute; bottom:2rem; left:3rem; right:3rem; background:var(--surface); border:1px solid var(--accent); border-radius:12px; padding:1.5rem 2rem; max-width:500px;">
             <p style="color:var(--accent); font-weight:600; margin-bottom:0.5rem;">We're currently closed</p>
             <p style="color:var(--text-dim); font-size:0.9rem;">But you can book online 24/7. Choose your preferred time and we'll confirm first thing in the morning.</p>
         </div>
 
-        <!-- Living.js: Emergency message -->
-        <div data-living-emergency style="position:absolute; top:6rem; right:3rem; background:#1a0000; border:1px solid #ff4444; border-radius:12px; padding:1.5rem 2rem; max-width:400px;">
+        <div data-living-emergency style="position:absolute; top:8rem; right:3rem; background:#1a0000; border:1px solid #ff4444; border-radius:12px; padding:1.5rem 2rem; max-width:400px;">
             <p style="color:#ff4444; font-weight:600; margin-bottom:0.5rem;">🚨 Dental Emergency?</p>
             <p style="color:var(--text-dim); font-size:0.9rem;">Call our emergency line or leave your number below for an immediate callback.</p>
             <a href="tel:+61280001234" style="display:inline-block; margin-top:0.75rem; padding:0.6rem 1.2rem; background:#ff4444; color:#fff; border-radius:6px; font-size:0.85rem; font-weight:600;">Call Now: (02) 8000 1234</a>
@@ -361,22 +405,10 @@
 
     <!-- Trust Bar -->
     <div class="trust" data-living-section="trust">
-        <div class="trust-item">
-            <div class="trust-number">15+</div>
-            <div class="trust-label">Years Experience</div>
-        </div>
-        <div class="trust-item">
-            <div class="trust-number">5,000+</div>
-            <div class="trust-label">Smiles Transformed</div>
-        </div>
-        <div class="trust-item">
-            <div class="trust-number">4.9</div>
-            <div class="trust-label">Google Rating</div>
-        </div>
-        <div class="trust-item">
-            <div class="trust-number">0%</div>
-            <div class="trust-label">Interest Finance</div>
-        </div>
+        <div class="trust-item"><div class="trust-number">15+</div><div class="trust-label">Years Experience</div></div>
+        <div class="trust-item"><div class="trust-number">5,000+</div><div class="trust-label">Smiles Transformed</div></div>
+        <div class="trust-item"><div class="trust-number">4.9</div><div class="trust-label">Google Rating</div></div>
+        <div class="trust-item"><div class="trust-number">0%</div><div class="trust-label">Interest Finance</div></div>
     </div>
 
     <!-- Services -->
@@ -423,7 +455,7 @@
         </div>
     </section>
 
-    <!-- Social Proof (hidden by default, surfaced by Living.js for price shoppers) -->
+    <!-- Social Proof (hidden — surfaced by Living.js for price shoppers) -->
     <div data-living-value-prop data-living-social-proof style="padding:2rem 3rem; background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
         <p style="text-align:center; color:var(--accent); font-size:0.8rem; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:1rem;">Why patients choose Luminous</p>
         <div style="display:flex; justify-content:center; gap:3rem; flex-wrap:wrap; font-size:0.9rem; color:var(--text-dim);">
@@ -507,67 +539,521 @@
             <span style="margin-left:1rem;">© 2026 • Sydney CBD</span>
         </div>
         <div class="footer-badge">
-            Powered by <a href="https://australianweb.agency" target="_blank" style="color:var(--accent);">Living.js</a> — Australian Web Agency
+            Powered by <a href="https://livingjs.australianweb.agency" target="_blank" style="color:var(--accent);">Living.js</a> — <a href="https://australianweb.agency" target="_blank" style="color:var(--accent);">Australian Web Agency</a>
         </div>
     </footer>
 
-    <!-- ═══════════════════════════════════════════════
-         LIVING.JS — This is where the magic happens.
-         One script. The website is now alive.
-         ═══════════════════════════════════════════════ -->
-    <script type="module">
-        import Living from '../../src/core/living.js';
+    <!-- ═══════════════════════════════════════════════════════════════
+         LIVING.JS v0.1.0 — INLINE BUNDLE
+         All core modules inlined for standalone demo.
+         In production, use: import Living from 'livingjs';
+         ═══════════════════════════════════════════════════════════════ -->
+    <script>
+    (function() {
+        'use strict';
 
-        Living.init({
-            business: 'cosmetic-dental',
-            location: 'Sydney CBD',
+        // ─── OBSERVER ───────────────────────────────────────────
+        class Observer {
+            constructor(config = {}) {
+                this.signals = {
+                    scrollDepth: 0, maxScrollDepth: 0, timeOnPage: 0,
+                    timeOnSections: {}, clicks: [], clickCount: 0,
+                    referrer: document.referrer || 'direct',
+                    source: this._detectSource(),
+                    device: this._detectDevice(),
+                    hour: new Date().getHours(),
+                    isAfterHours: false, isWeekend: false,
+                    isReturning: false, visitCount: 0, lastVisit: null,
+                    exitIntentFired: false, idleTime: 0, engagementScore: 0,
+                    urgencySignals: [], sectionsViewed: new Set(),
+                    formInteractions: 0, phoneClickAttempts: 0,
+                };
+                this.listeners = [];
+                this.sectionObservers = [];
+                this.config = config;
+                this._startTime = Date.now();
+                this._lastActivity = Date.now();
+                this._callbacks = new Map();
+            }
 
-            // AI configuration (optional — works without it using rule engine)
-            // ai: {
-            //     provider: 'anthropic',
-            //     apiKey: 'your-api-key-here',
-            // },
+            start() {
+                this._detectReturnVisitor();
+                this._detectTimeContext();
+                this._trackScroll();
+                this._trackClicks();
+                this._trackSections();
+                this._trackIdle();
+                this._trackExitIntent();
+                this._trackForms();
+                this._startEngagementTimer();
+                try {
+                    const visits = JSON.parse(localStorage.getItem('_living_visits') || '[]');
+                    visits.push({ ts: Date.now(), page: location.pathname });
+                    localStorage.setItem('_living_visits', JSON.stringify(visits.slice(-50)));
+                } catch(e) {}
+                return this;
+            }
 
-            // MCP connections (optional — enables direct calendar/payment integration)
-            // mcp: [
-            //     { name: 'calendar', url: 'https://calendarmcp.googleapis.com/mcp/v1' },
-            //     { name: 'stripe', url: 'https://mcp.stripe.com' },
-            // ],
+            on(event, callback) {
+                if (!this._callbacks.has(event)) this._callbacks.set(event, []);
+                this._callbacks.get(event).push(callback);
+                return this;
+            }
 
-            // Webhook for form submissions (optional — works with n8n, Make, Zapier)
-            // webhookUrl: 'https://your-n8n-instance.com/webhook/living-lead',
+            _emit(event, data) {
+                (this._callbacks.get(event) || []).forEach(cb => cb(data, this.signals));
+            }
 
-            // Override business hours (default from preset: 8-17)
-            business: {
-                type: 'cosmetic-dental',
-                location: 'Sydney CBD',
-                hours: { start: 8, end: 17 },
+            getSignals() {
+                this.signals.timeOnPage = Math.round((Date.now() - this._startTime) / 1000);
+                this.signals.engagementScore = this._calculateEngagement();
+                return { ...this.signals, sectionsViewed: [...this.signals.sectionsViewed] };
+            }
+
+            _detectSource() {
+                const params = new URLSearchParams(location.search);
+                if (params.get('gclid')) return 'google-ads';
+                if (params.get('fbclid')) return 'facebook-ads';
+                if (params.get('utm_source')) return params.get('utm_source');
+                const ref = document.referrer;
+                if (!ref) return 'direct';
+                if (ref.includes('google')) return 'google-organic';
+                return 'referral';
+            }
+
+            _detectDevice() {
+                const w = window.innerWidth;
+                return { type: w < 768 ? 'mobile' : w < 1024 ? 'tablet' : 'desktop', touch: 'ontouchstart' in window, width: w, height: window.innerHeight };
+            }
+
+            _detectReturnVisitor() {
+                try {
+                    const data = JSON.parse(localStorage.getItem('_living_visitor') || 'null');
+                    if (data) {
+                        this.signals.isReturning = true;
+                        this.signals.visitCount = (data.count || 0) + 1;
+                        this.signals.lastVisit = data.lastVisit;
+                        localStorage.setItem('_living_visitor', JSON.stringify({ count: this.signals.visitCount, firstVisit: data.firstVisit, lastVisit: Date.now() }));
+                    } else {
+                        this.signals.visitCount = 1;
+                        localStorage.setItem('_living_visitor', JSON.stringify({ count: 1, firstVisit: Date.now(), lastVisit: Date.now() }));
+                    }
+                } catch(e) {}
+            }
+
+            _detectTimeContext() {
+                const now = new Date();
+                const hour = now.getHours();
+                const bh = this.config.businessHours || this.config.business?.hours || { start: 9, end: 17 };
+                this.signals.hour = hour;
+                this.signals.isAfterHours = hour < bh.start || hour >= bh.end;
+                this.signals.isWeekend = now.getDay() === 0 || now.getDay() === 6;
+                if (hour >= 22 || hour <= 5) this.signals.urgencySignals.push('late-night-browsing');
+            }
+
+            _trackScroll() {
+                let ticking = false;
+                const onScroll = () => {
+                    if (ticking) return;
+                    ticking = true;
+                    requestAnimationFrame(() => {
+                        const depth = Math.round((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100) || 0;
+                        this.signals.scrollDepth = depth;
+                        if (depth > this.signals.maxScrollDepth) this.signals.maxScrollDepth = depth;
+                        if (depth > 75 && !this.signals.urgencySignals.includes('deep-scroll')) {
+                            this.signals.urgencySignals.push('deep-scroll');
+                            this._emit('deep-scroll', { depth });
+                        }
+                        this._lastActivity = Date.now();
+                        ticking = false;
+                    });
+                };
+                window.addEventListener('scroll', onScroll, { passive: true });
+                this.listeners.push(['scroll', onScroll]);
+            }
+
+            _trackClicks() {
+                const onClick = (e) => {
+                    const target = e.target.closest('a, button, [data-living], input[type="submit"]');
+                    if (!target) return;
+                    const clickData = { tag: target.tagName, text: (target.textContent || '').trim().slice(0, 80), href: target.href || null, ts: Date.now() };
+                    this.signals.clicks.push(clickData);
+                    this.signals.clickCount++;
+                    this._lastActivity = Date.now();
+                    if (target.href && target.href.startsWith('tel:')) {
+                        this.signals.phoneClickAttempts++;
+                        this.signals.urgencySignals.push('phone-click');
+                        this._emit('phone-click', clickData);
+                    }
+                    if (target.matches('[data-living-cta], .cta, .btn-primary, [class*="book"], [class*="contact"]')) this._emit('cta-click', clickData);
+                    if (target.closest('[data-living-pricing], [class*="pricing"], [class*="price"]')) {
+                        this.signals.urgencySignals.push('pricing-interest');
+                        this._emit('pricing-interest', clickData);
+                    }
+                    this._emit('click', clickData);
+                };
+                document.addEventListener('click', onClick, { passive: true });
+                this.listeners.push(['click', onClick]);
+            }
+
+            _trackSections() {
+                const sections = document.querySelectorAll('section, [data-living-section], [id]');
+                if (!sections.length || !('IntersectionObserver' in window)) return;
+                const sectionTimes = {};
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        const id = entry.target.id || entry.target.dataset.livingSection || entry.target.tagName;
+                        if (entry.isIntersecting) {
+                            sectionTimes[id] = Date.now();
+                            this.signals.sectionsViewed.add(id);
+                            this._emit('section-enter', { id });
+                        } else if (sectionTimes[id]) {
+                            const t = Math.round((Date.now() - sectionTimes[id]) / 1000);
+                            this.signals.timeOnSections[id] = (this.signals.timeOnSections[id] || 0) + t;
+                            delete sectionTimes[id];
+                            if (t > 15) this._emit('section-interest', { id, seconds: t });
+                        }
+                    });
+                }, { threshold: 0.3 });
+                sections.forEach(s => observer.observe(s));
+                this.sectionObservers.push(observer);
+            }
+
+            _trackForms() {
+                const onFocus = (e) => {
+                    if (e.target.matches('input, textarea, select')) {
+                        this.signals.formInteractions++;
+                        this._lastActivity = Date.now();
+                        if (this.signals.formInteractions === 1) this._emit('form-start', {});
+                    }
+                };
+                document.addEventListener('focusin', onFocus, { passive: true });
+            }
+
+            _trackIdle() {
+                setInterval(() => {
+                    const idle = Math.round((Date.now() - this._lastActivity) / 1000);
+                    this.signals.idleTime = idle;
+                    if (idle > 30 && idle < 35) this._emit('idle', { seconds: idle });
+                }, 5000);
+            }
+
+            _trackExitIntent() {
+                if (this.signals.device.type === 'mobile') {
+                    document.addEventListener('visibilitychange', () => {
+                        if (document.hidden && !this.signals.exitIntentFired) {
+                            this.signals.exitIntentFired = true;
+                            this._emit('exit-intent', { trigger: 'tab-switch' });
+                        }
+                    });
+                } else {
+                    const onLeave = (e) => {
+                        if (e.clientY < 5 && !this.signals.exitIntentFired) {
+                            this.signals.exitIntentFired = true;
+                            this._emit('exit-intent', { trigger: 'mouse-leave' });
+                        }
+                    };
+                    document.addEventListener('mouseout', onLeave);
+                }
+            }
+
+            _startEngagementTimer() {
+                setInterval(() => { this.signals.engagementScore = this._calculateEngagement(); }, 3000);
+            }
+
+            _calculateEngagement() {
+                let score = 0;
+                const s = this.signals;
+                score += Math.min(25, Math.round((Date.now() - this._startTime) / 6000));
+                score += Math.round(s.maxScrollDepth / 5);
+                score += Math.min(15, s.clickCount * 3);
+                score += Math.min(15, s.sectionsViewed.size * 3);
+                if (s.formInteractions > 0) score += 10;
+                if (s.isReturning) score += 10;
+                if (s.phoneClickAttempts > 0) score += 5;
+                return Math.min(100, score);
+            }
+
+            destroy() {
+                this.listeners.forEach(([e, fn]) => { document.removeEventListener(e, fn); window.removeEventListener(e, fn); });
+                this.sectionObservers.forEach(o => o.disconnect());
+            }
+        }
+
+        // ─── BRAIN (Rule Engine Only — no AI for demo) ──────────
+        class Brain {
+            constructor(config = {}) { this.config = config; this.cache = new Map(); }
+
+            async decide(signals) {
+                const key = `${signals.device?.type}|${signals.isAfterHours}|${signals.isReturning}|${Math.round(signals.engagementScore/20)*20}|${signals.maxScrollDepth > 60}|${signals.phoneClickAttempts}|${signals.source}`;
+                if (this.cache.has(key)) return this.cache.get(key);
+                const decision = this._evaluate(signals);
+                this.cache.set(key, decision);
+                return decision;
+            }
+
+            _evaluate(s) {
+                // Emergency: phone clicks + after hours
+                if (s.phoneClickAttempts >= 2 && s.isAfterHours) {
+                    return { intent: 'emergency', urgency: 10, confidence: 0.95, source: 'rules',
+                        actions: [
+                            { type: 'show-modal', target: '#living-emergency-modal', data: { template: 'emergency-callback' } },
+                        ],
+                        message: "Can't reach us by phone? Leave your number — we'll call you first thing." };
+                }
+
+                // Ready to book: high engagement + pricing interest
+                if (s.engagementScore > 70 && s.maxScrollDepth > 60 && s.urgencySignals.includes('pricing-interest')) {
+                    return { intent: 'ready-to-book', urgency: 8, confidence: 0.9, source: 'rules',
+                        actions: [
+                            { type: 'swap-cta', target: '[data-living-cta]', data: { text: 'Book Your Free Consultation →', style: 'urgent' } },
+                            { type: 'highlight-section', target: '#booking', data: {} },
+                        ], message: null };
+                }
+
+                // Return visitor: personalize
+                if (s.isReturning && s.visitCount >= 3) {
+                    return { intent: 'returning-client', urgency: 6, confidence: 0.85, source: 'rules',
+                        actions: [
+                            { type: 'swap-cta', target: '[data-living-cta]', data: { text: 'Welcome Back — Ready to Get Started?', style: 'warm' } },
+                        ],
+                        message: "Welcome back! You've been thinking about this. Let's make it happen." };
+                }
+
+                // Price shopping: pricing click + low engagement + quick visit
+                if (s.urgencySignals.includes('pricing-interest') && s.timeOnPage < 30 && s.engagementScore < 30) {
+                    return { intent: 'price-shopping', urgency: 4, confidence: 0.8, source: 'rules',
+                        actions: [
+                            { type: 'show-element', target: '[data-living-value-prop]', data: {} },
+                            { type: 'highlight-section', target: '#testimonials', data: {} },
+                        ], message: null };
+                }
+
+                // After hours browsing
+                if (s.isAfterHours && s.engagementScore > 30) {
+                    return { intent: 'considering', urgency: 5, confidence: 0.85, source: 'rules',
+                        actions: [
+                            { type: 'show-element', target: '[data-living-after-hours]', data: {} },
+                            { type: 'swap-cta', target: '[data-living-cta]', data: { text: 'Book Online — Available 24/7', style: 'default' } },
+                        ],
+                        message: "We're currently closed, but you can book online anytime." };
+                }
+
+                // Exit intent for engaged visitors
+                if (s.exitIntentFired && s.engagementScore > 40 && s.formInteractions === 0) {
+                    return { intent: 'considering', urgency: 7, confidence: 0.85, source: 'rules',
+                        actions: [
+                            { type: 'show-modal', target: '#living-exit-modal', data: { template: 'exit-offer' } },
+                        ],
+                        message: "Before you go — would you like a free consultation?" };
+                }
+
+                // Mobile late night
+                if (s.device?.type === 'mobile' && s.urgencySignals.includes('late-night-browsing')) {
+                    return { intent: 'emergency', urgency: 7, confidence: 0.8, source: 'rules',
+                        actions: [
+                            { type: 'show-element', target: '[data-living-emergency]', data: {} },
+                        ], message: null };
+                }
+
+                // Idle re-engage
+                if (s.idleTime > 30 && s.engagementScore > 20 && s.engagementScore < 60) {
+                    return { intent: 'browsing', urgency: 3, confidence: 0.7, source: 'rules',
+                        actions: [
+                            { type: 'show-element', target: '[data-living-nudge]', data: {} },
+                        ],
+                        message: "Still looking? We can help you find exactly what you need." };
+                }
+
+                return { intent: 'browsing', urgency: 1, actions: [], confidence: 0.3, source: 'rules-default', message: null };
+            }
+        }
+
+        // ─── ACTOR ──────────────────────────────────────────────
+        class Actor {
+            constructor(config = {}) { this.config = config; this._originals = new Map(); this.actionsExecuted = []; }
+
+            async execute(decision) {
+                if (!decision || !decision.actions) return;
+                for (const action of decision.actions) {
+                    try { await this._exec(action, decision); this.actionsExecuted.push({ ...action, ts: Date.now() }); }
+                    catch(e) { console.warn('[Living.js]', action.type, e.message); }
+                }
+                if (decision.message) this._showMessage(decision.message, decision.urgency);
+            }
+
+            async _exec(action, decision) {
+                switch(action.type) {
+                    case 'show-element': return this._show(action.target);
+                    case 'hide-element': return this._hide(action.target);
+                    case 'swap-cta': return this._swapCta(action.target, action.data);
+                    case 'show-modal': return this._showModal(action.data, decision);
+                    case 'highlight-section': return this._highlight(action.target);
+                }
+            }
+
+            _show(sel) {
+                document.querySelectorAll(sel).forEach(el => {
+                    el.style.display = '';
+                    el.style.opacity = '0';
+                    el.style.transform = 'translateY(10px)';
+                    requestAnimationFrame(() => {
+                        el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                        el.style.opacity = '1';
+                        el.style.transform = 'translateY(0)';
+                    });
+                });
+            }
+
+            _hide(sel) {
+                document.querySelectorAll(sel).forEach(el => {
+                    el.style.transition = 'opacity 0.3s';
+                    el.style.opacity = '0';
+                    setTimeout(() => el.style.display = 'none', 300);
+                });
+            }
+
+            _swapCta(sel, data) {
+                document.querySelectorAll(sel).forEach(el => {
+                    if (!this._originals.has(el)) this._originals.set(el, { text: el.textContent, className: el.className });
+                    if (data.text) el.textContent = data.text;
+                    if (data.style === 'urgent') {
+                        el.style.background = '#FFD700';
+                        el.style.color = '#000';
+                        el.style.fontWeight = '700';
+                        el.style.animation = 'living-pulse 2s infinite';
+                    } else if (data.style === 'warm') {
+                        el.style.borderColor = '#FFD700';
+                        el.style.color = '#FFD700';
+                    }
+                });
+            }
+
+            _highlight(sel) {
+                const el = document.querySelector(sel);
+                if (!el) return;
+                el.style.outline = '2px solid rgba(201,169,98,0.6)';
+                el.style.outlineOffset = '8px';
+                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                setTimeout(() => { el.style.outline = 'none'; }, 3000);
+            }
+
+            _showModal(data, decision) {
+                if (document.querySelector('.living-modal')) return;
+                const modal = document.createElement('div');
+                modal.className = 'living-modal';
+                modal.style.cssText = 'display:flex; position:fixed; inset:0; z-index:100000; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); align-items:center; justify-content:center; opacity:0; transition:opacity 0.3s;';
+
+                const isEmergency = data.template === 'emergency-callback';
+                modal.innerHTML = `
+                    <div style="background:#111; border:1px solid ${isEmergency ? '#ff4444' : 'rgba(201,169,98,0.2)'}; border-radius:16px; padding:2.5rem; max-width:440px; width:90%; position:relative; color:#fff; font-family:inherit;">
+                        <button onclick="this.closest('.living-modal').remove()" style="position:absolute; top:1rem; right:1rem; background:none; border:none; color:#888; font-size:1.5rem; cursor:pointer;">×</button>
+                        <div style="font-size:2.5rem; margin-bottom:1rem;">${isEmergency ? '🚨' : '💬'}</div>
+                        <h2 style="font-size:1.4rem; margin-bottom:0.5rem; color:${isEmergency ? '#ff4444' : '#C9A962'};">${isEmergency ? 'Need urgent help?' : (decision.message || 'Before you go...')}</h2>
+                        <p style="color:#aaa; margin-bottom:1.5rem; line-height:1.6; font-size:0.95rem;">${isEmergency ? 'Leave your number and we\'ll call you back as soon as we\'re available.' : 'Get a free, no-obligation consultation. We\'ll review your situation and give you honest advice.'}</p>
+                        <form style="display:flex; flex-direction:column; gap:0.75rem;" onsubmit="event.preventDefault(); this.innerHTML='<div style=\\'text-align:center; color:#C9A962; font-size:1.2rem; padding:2rem 0;\\'>✓ Thank you! We\\'ll be in touch soon.</div>';">
+                            <input type="text" placeholder="Your name" required style="background:#1a1a1a; border:1px solid #333; color:#fff; padding:0.85rem 1rem; border-radius:8px; font-size:0.95rem;">
+                            <input type="${isEmergency ? 'tel' : 'email'}" placeholder="${isEmergency ? 'Your phone number' : 'Your email'}" required style="background:#1a1a1a; border:1px solid #333; color:#fff; padding:0.85rem 1rem; border-radius:8px; font-size:0.95rem;">
+                            <button type="submit" style="background:${isEmergency ? '#ff4444' : '#C9A962'}; color:${isEmergency ? '#fff' : '#000'}; border:none; padding:1rem; border-radius:8px; font-size:1rem; font-weight:700; cursor:pointer;">${isEmergency ? 'Request Callback →' : 'Get Free Consultation →'}</button>
+                        </form>
+                    </div>`;
+
+                document.body.appendChild(modal);
+                modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
+                requestAnimationFrame(() => modal.style.opacity = '1');
+            }
+
+            _showMessage(text, urgency) {
+                if (document.querySelector('.living-msg')) return;
+                const msg = document.createElement('div');
+                msg.className = 'living-msg';
+                const borderColor = urgency > 7 ? '#ff4444' : urgency > 4 ? '#C9A962' : 'rgba(255,255,255,0.1)';
+                msg.style.cssText = `position:fixed; bottom:20px; left:50%; transform:translateX(-50%) translateY(100px); z-index:99999; background:#111; border:1px solid ${borderColor}; border-radius:12px; padding:1rem 1.5rem; display:flex; align-items:center; gap:1rem; max-width:480px; width:90%; color:#fff; font-size:0.9rem; box-shadow:0 10px 40px rgba(0,0,0,0.5); transition:transform 0.4s cubic-bezier(0.25,1,0.5,1);`;
+                msg.innerHTML = `<span>${urgency > 7 ? '🚨 ' : ''}${text}</span><button onclick="this.parentNode.remove()" style="background:none; border:none; color:#666; font-size:1.2rem; cursor:pointer; flex-shrink:0;">×</button>`;
+                document.body.appendChild(msg);
+                requestAnimationFrame(() => msg.style.transform = 'translateX(-50%) translateY(0)');
+                setTimeout(() => { msg.style.transform = 'translateX(-50%) translateY(100px)'; setTimeout(() => msg.remove(), 400); }, 8000);
+            }
+
+            injectStyles() {
+                if (document.querySelector('#living-styles')) return;
+                const s = document.createElement('style');
+                s.id = 'living-styles';
+                s.textContent = `@keyframes living-pulse { 0%,100%{box-shadow:0 0 0 0 rgba(255,215,0,0.4)} 50%{box-shadow:0 0 0 12px rgba(255,215,0,0)} }`;
+                document.head.appendChild(s);
+            }
+        }
+
+        // ─── LIVING.JS MAIN ─────────────────────────────────────
+        const presets = {
+            'cosmetic-dental': {
+                business: { type:'cosmetic-dental', industry:'healthcare', services:['veneers','implants','whitening','invisalign','smile-makeover','crowns'], avgDealValue:'$3,000-$15,000', hours:{start:8,end:17} },
+                behaviors: ['lead-qualify','emergency-detect','auto-book','after-hours','return-visitor'],
+                decisionInterval: 5000,
             },
+        };
 
-            // Decision engine checks every 5 seconds
-            decisionInterval: 5000,
+        const config = {
+            ...presets['cosmetic-dental'],
+            business: { ...presets['cosmetic-dental'].business, location: 'Sydney CBD' },
+        };
+
+        const observer = new Observer(config);
+        const brain = new Brain(config);
+        const actor = new Actor(config);
+
+        actor.injectStyles();
+        observer.start();
+
+        // High-priority events → immediate decisions
+        ['phone-click','exit-intent','cta-click','pricing-interest'].forEach(event => {
+            observer.on(event, async (data, signals) => {
+                const decision = await brain.decide(signals);
+                await actor.execute(decision);
+                updateBanner(signals, decision);
+            });
         });
 
-        // Debug: see what Living.js is doing
-        document.addEventListener('living:ready', () => {
-            console.log('Living.js state:', Living.getState());
+        observer.on('idle', async (data, signals) => {
+            const decision = await brain.decide(signals);
+            await actor.execute(decision);
+            updateBanner(signals, decision);
         });
 
-        // Handle form submissions locally (before webhook)
+        // Decision loop
+        let lastKey = '';
+        setInterval(async () => {
+            const signals = observer.getSignals();
+            const key = `${signals.engagementScore}-${signals.maxScrollDepth}-${signals.clickCount}`;
+            if (key === lastKey) { updateBanner(signals, null); return; }
+            lastKey = key;
+            if (signals.engagementScore < 15) { updateBanner(signals, null); return; }
+            const decision = await brain.decide(signals);
+            if (decision.urgency >= 4 || (decision.actions && decision.actions.length > 0)) {
+                await actor.execute(decision);
+            }
+            updateBanner(signals, decision);
+        }, config.decisionInterval);
+
+        // Demo banner updater
+        function updateBanner(signals, decision) {
+            const scoreEl = document.getElementById('demo-score');
+            const intentEl = document.getElementById('demo-intent');
+            if (scoreEl) scoreEl.textContent = signals.engagementScore;
+            if (intentEl) intentEl.textContent = decision?.intent || 'browsing';
+        }
+
+        // Form submission handler
         document.querySelector('[data-living-form="booking"]')?.addEventListener('submit', (e) => {
             e.preventDefault();
             const data = Object.fromEntries(new FormData(e.target));
-            console.log('Booking submitted:', data);
-
-            // Show success
-            e.target.innerHTML = `
-                <div style="text-align:center; padding:3rem 0;">
-                    <div style="font-size:3rem; margin-bottom:1rem;">✓</div>
-                    <h3 style="font-family:var(--serif); font-size:1.5rem; margin-bottom:0.5rem; color:var(--accent);">Consultation Booked</h3>
-                    <p style="color:var(--text-dim);">Thank you ${data.name}! We'll confirm your appointment within 2 hours.</p>
-                </div>
-            `;
+            e.target.innerHTML = `<div style="text-align:center; padding:3rem 0;"><div style="font-size:3rem; margin-bottom:1rem;">✓</div><h3 style="font-family:var(--serif); font-size:1.5rem; margin-bottom:0.5rem; color:var(--accent);">Consultation Booked</h3><p style="color:var(--text-dim);">Thank you ${data.name}! We'll confirm your appointment within 2 hours.</p></div>`;
         });
+
+        console.log('%c⚡ Living.js v0.1.0 %c— Demo mode. Your website is alive.', 'background:#FFD700; color:#000; padding:4px 8px; border-radius:4px; font-weight:bold;', 'color:#FFD700;');
+        document.dispatchEvent(new CustomEvent('living:ready'));
+
+    })();
     </script>
 
 </body>
